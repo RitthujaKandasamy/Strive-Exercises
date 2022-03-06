@@ -1,0 +1,14 @@
+"""3. Strive School Challenge:
+In this challenge you need to code a function that receives a list of numbers and returns:
+
+Strive if the number is divisible by 3
+School if the number is divisible by 5
+Strive School if the number is divisible by 3 and 5
+the number itself otherwise
+i. e. strive_school([1, 2, 3, 5, 15]) outputs [1, 2, Strive, School, Strive School]"""
+
+
+
+strive_school = [1, 2, 3, 5, 15]
+
+if 3 % strive:
