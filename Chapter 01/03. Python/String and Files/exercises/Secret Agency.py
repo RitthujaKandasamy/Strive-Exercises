@@ -24,14 +24,16 @@ if the number of the people is less or equals to 0, or the length of the list is
 
 def Secret_Agent_Challenge(a):
 
-    x = len(a[0])
+    x = len(a)
     for i in range(0, x):
         for j in range(0, x):
             if i != j:
-                if a[i] == a[j]:
-                    print("felix")
+                #print(a[i][0]," ",a[j][1])
+                if a[i][0] == a[j][1]:
+                    print(a[i][0])
+                    
                     
 
     
 
-Secret_Agent_Challenge([["felix", "jeno"], ["lara", "jeno", "Jangiri"], ["lara", "felix"]])
+Secret_Agent_Challenge([["felix", "jeno"], ["lara", "jeno"], ["lara", "felix"]])
