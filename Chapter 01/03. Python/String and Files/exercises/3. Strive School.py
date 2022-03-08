@@ -15,12 +15,13 @@ def strive_school(Strive):
     x = len(Strive)
     for i in range(0,x):
         if Strive[i] % (3 * 5) == 0:
-            print("Strive School" )
+            y.append("Strive School" )
         elif Strive[i] % 5 == 0:
-            print("School", end=", ")
+            y.append("School")
         elif Strive[i] % 3 == 0:
-            print("Strive", end=", ")
+            y.append("Strive")
         else:
-            print(Strive[i], end=", ")
-              
-strive_school([7, 8, 3, 5, 15])
+            y.append(Strive[i])
+    return y   
+
+print(strive_school([7, 8, 3, 5, 15]))
