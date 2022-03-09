@@ -1,7 +1,7 @@
-import math
-import matplotlib.pyplot as plt
+#import math
+#import matplotlib.pyplot as plt
 
-class countdown():
+class Countdown():
 
     def __init__(self, nums):
        self.nums = nums
@@ -9,7 +9,7 @@ class countdown():
     
     def countdown(self):
         print("Countdown")
-    for count in range(20, 0, self.nums -1):
+    for count in range(20, self.nums -1):
         print(count)
         
     print ("Blast off!")
