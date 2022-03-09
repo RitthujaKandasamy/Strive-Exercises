@@ -6,9 +6,8 @@ i. e. print_pyramid(5)"""
 
 def print_pyramid(n):
 
-    for i in range(0, n):
-        for j in range(i + 1):
-            print("#")
-        print("\n")    
+    for i in range(0, n + 1):
+        print(i * "#")
+    print("\n")    
 
 print_pyramid(5)
