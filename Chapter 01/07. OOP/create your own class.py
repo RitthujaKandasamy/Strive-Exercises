@@ -1,56 +1,160 @@
 
 
+from turtle import distance
+
+
 class Food:
 
     """  
     Create a class called food that has following attributes.
 
-       Attributes: name, flavor, price, country_of_origin, nutritional_content
+       Attributes: name, price
     """
     
 
-    def __init__(self, name, flavor, price, nutritional_content, country_of_origin):
+    def __init__(self, name, price):
         self.name = name
-        self.nutritional_content = nutritional_content
-        self.flavor = flavor
-        self.country_of_origin = country_of_origin
         self.price = price
-        self.__ratings_stars = []
-        pass
+        self.__quality_of_the_food = []
+    
 
     def calculate_food_cost(self, beginning_inventory, Purchases, Ending_Inventory, Food_sales):
-        self.percentage = (beginning_inventory +  Purchases -  Ending_Inventory) / Food_sales
-        return self.percentage
+        percentage = (beginning_inventory +  Purchases -  Ending_Inventory) / Food_sales
+        return percentage
 
     def calculate_discount(self, discount):
-        self.discount = discount
-        self.discount_first = int(self.price * (1 - self.discount))
-        return self.discount_first
+        discount_first = self.price * (1 - discount)
+        return discount_first
 
     def calculate_time(self, prepare, person):
-         self.person = person
-         self.prepare = prepare
-         self.total_time = self.person * self.prepare
-         return self.total_time
+         total_time = person * prepare
+         return total_time
 
-    def add_rating(self, stars):
-        self.__ratings_stars.apppend(stars)
+    def add_quality(self, food_quality):
+        self.__quality_of_the_food.append(food_quality)
 
-    def get_ratings_average(self):
-        return sum(self.__ratings.stars) / len(self.__ratings_stars)
+    def get_quality_average(self):
+        ratings = sum(self.__quality_of_the_food) / len(self.__quality_of_the_food)
+        return ratings
 
     def get_total_ratings(self):
-        return len(self.__ratings_stars)
+        return len(self.__quality_of_the_food)
 
     def __str__(self):
-        return f'Food Name: {self.name}\nFood Flavours: {self.flavor}\nFood Nutritional Content: {self.nutritional_content}\nFood Price: {self.price}\nFood Country of Origin: {self.country_of_origin}'
+        return f'Food Name: {self.name}\nFood Price: {self.price}$'
 
 
 
-class Slow_food:
+class Slow_food(Food):
 
     """
        Create a class called slow food that has following attributes.
 
-       Attributes: name, price, nutritional_content
+       Attributes: name, price, nutritional_content, flavor, country_of_origin, extra_order = 0
     """
+
+    def __init__(self, name, price, nutritional_content, flavor, country_of_origin, extra_order = 0):
+        super().__init__(name, price)
+        self.country_of_origin = country_of_origin
+        self.nutritional_content = nutritional_content
+        self.flavor = flavor
+        self.__extra_order = 0
+
+    def food_nutrition(self):
+
+        # nutritionalvalue are calculated in calories
+
+        if self.nutritional_content >= 1000:
+            print('5 Stars')
+        elif self.nutritional_content <= 1900:
+            print('3 Stars')
+        else:
+            print('No Stars')
+
+  
+    def food_order(self, order):
+        if order < 2:
+            raise ValueError("Food order must be greater than 2, we need to take more than 2 order daily")
+        self.__extra_order = order
+
+
+    def __str__(self):
+        return f'Food Name: {self.name}\nFood Price: {self.price}$\nFood Nutritional Content: {self.nutritional_content}\nFood Flavours: {self.flavor}\nFood Country of Origin: {self.country_of_origin}'
+
+
+
+class Fast_food(Food):
+
+    """
+       Create a class called slow food that has following attributes.
+
+       Attributes: name, price, country_of_origin, flavor, takeaway_or_dine_in
+    """
+
+    def __init__(self, name, price, country_of_origin, flavor, takeaway_or_dine_in):
+        super().__init__(name, price)
+        self.country_of_origin = country_of_origin
+        self.flavor = flavor
+        self.takeaway_or_dine_in = takeaway_or_dine_in
+        self.__discount = 50
+
+    
+    def special_discount(self):
+        discount_offer = self.price / self.__discount
+        return discount_offer
+
+
+    def food_delivery(self, distance):
+         
+        # delivery are calculated in kilometers
+        #distance = input()
+        #print('Enter your distance from house to our shop: ' + distance)
+
+        if distance >= 5:
+            print('Food Delivery is free')
+        else:
+            print('Food Delivery cost 10 Euro') 
+        
+        
+    def __str__(self):
+        return f'Food Name: {self.name}\nFood Price: {self.price}$\nFood Country of Origin: {self.country_of_origin}\nFood Flavours: {self.flavor}'
+
+
+
+food = Food('Local', 34)
+print(food.__str__())
+print(food.calculate_food_cost(45, 789, 24, 65))
+print(food.calculate_discount(0.5))
+print(food.calculate_time(40, 4))
+
+
+food1 = Slow_food('Dosa', 67, 678, 'Spicy', 'India')
+print(food1.__str__())
+print(food1.food_nutrition())
+print(food1.food_order(2))
+food1.add_quality(5)
+food1.add_quality(8)
+food1.add_quality(6)
+food1.add_quality(10)
+food1.add_quality(7)
+
+
+food2 = Fast_food('Pasta', 45, 'Italy', 'Spicy', 'Takeaway')
+print(food2.__str__())
+print(food2.special_discount())
+print(food2.food_delivery(4))
+food2.add_quality(7)
+food2.add_quality(5)
+food2.add_quality(7)
+food2.add_quality(9)
+
+
+all_food = [food, food1, food2]
+print('****************************')
+
+
+for foodie in all_food:
+    print(foodie)
+    print('****************************')
+    print(f'Reviewed by {foodie.get_total_ratings()} customers,'f'with and average rating of{foodie.get_quality_average()}')
+    print('###############################')
