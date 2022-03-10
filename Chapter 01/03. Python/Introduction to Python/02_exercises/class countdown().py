@@ -1,8 +1,4 @@
 
-
-import math
-
-
 class Countdown:
     """
     Create a countdown function that starts at a certain count, 
@@ -19,14 +15,11 @@ class Countdown:
     
     
     def countdown_blast(self):
-       for count in range(self.start, self.end, self.between):
-          print(count)
-       print ("Blast off!")
+      for count in range(self.start, self.end, self.between):
+         print(count)
+      print ("Blast off!")
 
-c = Countdown(20, 0, -1)
-c.start
-c.end
-c.between
+c = Countdown(30, 10, -1)
 
 c.countdown_blast()
 

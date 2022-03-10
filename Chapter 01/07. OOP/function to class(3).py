@@ -25,7 +25,4 @@ class Primenumber:
 
 prime = Primenumber(2, 30)
 
-prime.first_number
-prime.second_number
-
 prime.prime_numbers()

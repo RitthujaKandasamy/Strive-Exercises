@@ -18,23 +18,22 @@ class Book:
         self.additional_copy = copy 
         self.cover_price = price
         pass
+        
 
     def first_copy(self):
-        self.first_copy = int(self.shipping_cost + self.cover_price) / self.discount
-        return self.first_copy
+        self.first_book_copy = int((self.shipping_cost + self.cover_price) / self.discount)
+        return self.first_book_copy 
 
     def copies(self):
-        self.copies = int((self.additional_copy + self.cover_price) * 59) / self.discount
-        return self.copies
+        self.number_of_copy = int(((self.additional_copy + self.cover_price) * 59) / self.discount)
+        return self.number_of_copy
 
-    def total_copies(self, total):
-        self.total = int(self.first_copy + self.copies)
-        print(self.total)  
+    def total_copies(self):
+        total = int(self.first_book_copy + self.number_of_copy)
+        print(total)  
 
 book = Book(1.40, 3, 0.75, 24.95) 
-book.shipping_cost
-book.discount
-book.additional_copy
-book.cover_price  
 
+book.first_copy()
+book.copies()
 book.total_copies()
