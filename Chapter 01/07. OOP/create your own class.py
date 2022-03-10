@@ -3,6 +3,7 @@
 from turtle import distance
 
 
+
 class Food:
 
     """  
