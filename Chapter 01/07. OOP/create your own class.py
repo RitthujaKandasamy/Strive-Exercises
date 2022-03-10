@@ -3,7 +3,6 @@
 from turtle import distance
 
 
-
 class Food:
 
     """  
@@ -59,7 +58,7 @@ class Slow_food(Food):
         self.country_of_origin = country_of_origin
         self.nutritional_content = nutritional_content
         self.flavor = flavor
-
+        
 
     def food_nutrition(self):
 
@@ -73,8 +72,9 @@ class Slow_food(Food):
             print('No Stars')
 
   
-    def extra_order(self, order):
-        if order < 2:
+    def food_order(self, order):
+        self.__extra_order = order
+        if self.__extra_order < 2:
             raise ValueError("Food order must be greater than 2, we need to take more than 2 order daily")
 
 
@@ -131,7 +131,7 @@ print(food.calculate_time(40, 4))
 food1 = Slow_food('Dosa', 67, 678, 'Spicy', 'India')
 print(food1.__str__())
 print(food1.food_nutrition())
-print(food1.extra_order(5))
+print(food1.food_order(5))
 food1.add_quality(5)
 food1.add_quality(8)
 food1.add_quality(6)
