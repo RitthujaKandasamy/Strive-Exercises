@@ -50,15 +50,15 @@ class Slow_food(Food):
     """
        Create a class called slow food that has following attributes.
 
-       Attributes: name, price, nutritional_content, flavor, country_of_origin, extra_order = 0
+       Attributes: name, price, nutritional_content, flavor, country_of_origin
     """
 
-    def __init__(self, name, price, nutritional_content, flavor, country_of_origin, extra_order = 0):
+    def __init__(self, name, price, nutritional_content, flavor, country_of_origin):
         super().__init__(name, price)
         self.country_of_origin = country_of_origin
         self.nutritional_content = nutritional_content
         self.flavor = flavor
-        self.__extra_order = 0
+
 
     def food_nutrition(self):
 
@@ -72,10 +72,9 @@ class Slow_food(Food):
             print('No Stars')
 
   
-    def food_order(self, order):
+    def extra_order(self, order):
         if order < 2:
             raise ValueError("Food order must be greater than 2, we need to take more than 2 order daily")
-        self.__extra_order = order
 
 
     def __str__(self):
@@ -96,12 +95,7 @@ class Fast_food(Food):
         self.country_of_origin = country_of_origin
         self.flavor = flavor
         self.takeaway_or_dine_in = takeaway_or_dine_in
-        self.__discount = 50
-
-    
-    def special_discount(self):
-        discount_offer = self.price / self.__discount
-        return discount_offer
+        self.__discount = 0.5
 
 
     def food_delivery(self, distance):
@@ -113,7 +107,12 @@ class Fast_food(Food):
         if distance >= 5:
             print('Food Delivery is free')
         else:
-            print('Food Delivery cost 10 Euro') 
+            print('Food Delivery cost 10 Euro')
+        
+
+    def special_discount(self):
+        discount_offer = self.price / self.__discount
+        return discount_offer
         
         
     def __str__(self):
@@ -131,7 +130,7 @@ print(food.calculate_time(40, 4))
 food1 = Slow_food('Dosa', 67, 678, 'Spicy', 'India')
 print(food1.__str__())
 print(food1.food_nutrition())
-print(food1.food_order(2))
+print(food1.extra_order(5))
 food1.add_quality(5)
 food1.add_quality(8)
 food1.add_quality(6)
@@ -141,15 +140,15 @@ food1.add_quality(7)
 
 food2 = Fast_food('Pasta', 45, 'Italy', 'Spicy', 'Takeaway')
 print(food2.__str__())
-print(food2.special_discount())
 print(food2.food_delivery(4))
+print(food2.special_discount())
 food2.add_quality(7)
 food2.add_quality(5)
 food2.add_quality(7)
 food2.add_quality(9)
 
 
-all_food = [food, food1, food2]
+all_food = [food1, food2]
 print('****************************')
 
 
