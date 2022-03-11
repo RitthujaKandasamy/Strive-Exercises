@@ -156,5 +156,5 @@ print('****************************')
 for foodie in all_food:
     print(foodie)
     print('****************************')
-    print(f'Reviewed by {foodie.get_total_ratings()} customers,'f'with and average rating of{foodie.get_quality_average()}')
+    print(f'Reviewed by {foodie.get_total_ratings()} customers,'f'with and average rating of {foodie.get_quality_average()}')
     print('###############################')
