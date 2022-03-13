@@ -29,19 +29,32 @@ class Cube:
    """
 
 
-   def __init__(self, x1, y1, z1, a1, a2):
-        self.widt1 = y1
-        self.height1 = z1
-        self.length1 = x1
-        self.size1 = a1
-        self.size2 = a2
+   def __init__(self, length, width, height):
+        self.x = length
+        self.y = width
+        self.z = height
+
+   
+   def solve(self, length1, width1, height1, size1, length2, width2, height2, size2):
+       self.y1 = width1
+       self.z1 = height1
+       self.x1 = length1
+       self.a1 = size1
+       self.a2 = size2
+       self.x2 = length2
+       self.y2 = width2
+       self.z2 = height2
+
+       # if x2 is not in the x1, then it can not intersect
+       # so we are using (not) to check
+       
+       if not ((((self.x2 - (self.a2/2)) > (self.x1 - (self.a1/2))) and ((self.x2 - (self.a2/2)) < (self.x1 + (self.a1/2)))) or (((self.x2 + (self.a2/2)) > (self.x1 - (self.a1/2))) and ((self.x2 - (self.a2/2)) < (self.x1 + (self.a1/2))))):
+             return False
+       else:
+             return True
 
 
-   def intersect_not(self, x2, y2, z2):
-        self.length2 = x2
-        self.width2 = y2
-        self.height2 = z2
+    
 
-        # cube intersect or not formula
 
-        if (x2 - a1) > (x1 - )
+   
