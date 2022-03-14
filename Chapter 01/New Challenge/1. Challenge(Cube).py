@@ -27,6 +27,14 @@ class Cube:
 
   Returns:
        (False, 0)    
+
+    Intersection
+       cube1                   cube2            
+       center: (10, 10, 0)     center: (8, 9, 0)
+       size: 5                 size: 2  
+
+  Returns:
+       (True,6)        
    """
 
 
@@ -58,17 +66,16 @@ class Cube:
        a4 = self.x1 + (self.a1/2)
        b1 = self.x2 - (self.a2/2)
        b2 = self.x2 + (self.a2/2)
-       
 
        if (b2 > a3) and (b2 < a4) and (b1 < a3) and (b1 < a4):
            length = (a4 - a3) - (a4 - b2)
-           print(length)
+           return(length)
        elif (a4 > b1) and (a3 < b1) and (b2 > a4) and (a3 < b2):
            length3 = (a4 - b1)
-           print(length3)
+           return(length3)
        elif (b1 > a3) and (b2 < a4) and (a4 > b1) and (a3 < b2):
            length4 = (b2 - b1)
-           print(length4)    
+           return(length4)    
          
 
 
@@ -77,16 +84,16 @@ class Cube:
        a6 = self.y1 + (self.a1/2)
        b3 = self.y2 - (self.a2/2)
        b4 = self.y2 + (self.a2/2)
-
+    
        if (b4 > a5) and (b4 < a6) and (b3 < a5) and (b3 < a6):
            width = (a6 - a5) - (a6 - b4)
-           print(width)
+           return(width)
        elif (a6 > b3) and (a5 < b3) and (b4 > a6) and (a5 < b4):
            width3 = (a6 - b3)
-           print(width3)
+           return(width3)
        elif (b3 > a5) and (b4 < a6) and (a6 > b3) and (a5 < b4):
            width4 = (b4 - b3)
-           print(width4)    
+           return(width4)    
 
 
    def volume2(self):
@@ -97,21 +104,17 @@ class Cube:
 
        if (b6 > a7) and (b6 < a8) and (b5 < a7) and (b5 < a8):
            height = (a8 - a7) - (a8 - b6)
-           print(height)
+           return(height)
        elif (a8 > b5) and (a7 < b5) and (b6 > a8) and (a7 < b6):
            height3 = (a8 - b5)
-           print(height3)
+           return(height3)
        elif (b5 > a7) and (b6 < a8) and (a8 > b5) and (a7 < b6):
            height4 = (b6 - b5)
-           print(height4)    
+           return(height4)    
 
 
-   #def total_volume(self):
-       #volume 
+   def total_volume(self):
 
-cube = Cube(10, 10, 0, 5, 8, 9, 0, 2)
-print(cube.solve())       
-print(cube.volume())
-print(cube.volume1())
-print(cube.volume2())
-#print(cube.volume()*cube.volume1()*cube.volume2())
+
+cube = Cube(10, 10, 0, 5, 5, 5, 0, 2)
+print(cube.solve())   
