@@ -58,24 +58,25 @@ class Slow_food(Food):
         self.country_of_origin = country_of_origin
         self.nutritional_content = nutritional_content
         self.flavor = flavor
-        
+        self.__extra_order = 0
 
     def food_nutrition(self):
 
         # nutritionalvalue are calculated in calories
 
         if self.nutritional_content >= 1000:
-            print('5 Stars')
+            return '5 Stars'
         elif self.nutritional_content <= 1900:
-            print('3 Stars')
+            return '3 Stars'
         else:
-            print('No Stars')
+            return 'No Stars'
 
   
     def food_order(self, order):
-        self.__extra_order = order
-        if self.__extra_order < 2:
+    
+        if order > 2:
             raise ValueError("Food order must be greater than 2, we need to take more than 2 order daily")
+        self.__extra_order = order
 
 
     def __str__(self):
@@ -106,9 +107,9 @@ class Fast_food(Food):
         #print('Enter your distance from house to our shop: ' + distance)
 
         if distance >= 5:
-            print('Food Delivery is free')
+            return 'Food Delivery is free'
         else:
-            print('Food Delivery cost 10 Euro')
+            return 'Food Delivery cost 10 Euro'
         
 
     def special_discount(self):
@@ -131,7 +132,7 @@ print(food.calculate_time(40, 4))
 food1 = Slow_food('Dosa', 67, 678, 'Spicy', 'India')
 print(food1.__str__())
 print(food1.food_nutrition())
-print(food1.food_order(5))
+print(food1.food_order(1))
 food1.add_quality(5)
 food1.add_quality(8)
 food1.add_quality(6)
@@ -156,5 +157,5 @@ print('****************************')
 for foodie in all_food:
     print(foodie)
     print('****************************')
-    print(f'Reviewed by {foodie.get_total_ratings()} customers,'f'with and average rating of {foodie.get_quality_average()}')
+    print(f'Reviewed by {foodie.get_total_ratings()} customers, 'f'with and average rating of {foodie.get_quality_average()}')
     print('###############################')
