@@ -2,7 +2,8 @@ import pandas as pd
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor
+
 
 hello = "<3"
 
@@ -25,10 +26,22 @@ def get_data(pth):
     Rf_clf.fit(x_train,y_train)
 
     # predict the RF
-    predictions = Rf_clf.predict(x_test)
+    pred_rf = Rf_clf.predict(x_test)
 
+    # creating Adaboost
+    regr = AdaBoostRegressor(random_state=0, n_estimators=100)
+    regr.fit(x_train, y_train)
 
+    # predict Ada
+    pred_ada = regr.predict(x_test)
 
-    return x_train, x_test, y_train, y_test, Rf_clf, predictions
+    # creating GB
+    GB_clf = GradientBoostingRegressor(random_state=0)
+    GB_clf.fit(x_train,y_train)
+
+    # predict Gb
+    pred_GB = GB_clf.predict(x_test)
+
+    return x_train, x_test, y_train, y_test, pred_rf, pred_ada, pred_GB
 
 get_data('C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\07. Gradient Boosting and Encoding\\insurance.csv')
