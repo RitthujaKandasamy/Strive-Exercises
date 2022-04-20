@@ -7,8 +7,10 @@ from sklearn.compose import ColumnTransformer
 
 def get_data(pth):
 
+
     data = pd.read_csv(pth)
-    #print(data[:3])
+    print(data[:3])
+
     
     # split
     x_train, x_test, y_train, y_test = train_test_split(data.values[:, :-1], data.values[:, -1], test_size = 0.2, random_state = 0)
@@ -27,13 +29,13 @@ def get_data(pth):
 
     
     # visualizations
-    # for col_name in data.columns:
-    #      plt.figure()
-    #      plt.hist(data[col_name])
-    #      plt.title(col_name)
-    #      plt.show()
+    for col_name in data.columns:
+         plt.figure()
+         plt.hist(data[col_name])
+         plt.title(col_name)
+         plt.show()
 
 
-    return x_train, x_test, y_train, y_test
+    return x_train, x_test, y_train, y_test, ct
 
 

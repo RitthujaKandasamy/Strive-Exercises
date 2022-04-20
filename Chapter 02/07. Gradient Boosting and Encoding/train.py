@@ -2,14 +2,14 @@ import dataset as dh
 from xgboost import XGBRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor
 from sklearn.model_selection import cross_validate, GridSearchCV
-from sklearn.metrics import accuracy_score
 
 
-x_train, x_test, y_train, y_test = dh.get_data("C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\07. Gradient Boosting and Encoding\\insurance.csv")
+
+x_train, x_test, y_train, y_test, ct = dh.get_data("C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\07. Gradient Boosting and Encoding\\insurance.csv")
 
 
 # check shape 
-#print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
+print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
 
 
 def train(rf, ada, gb, xgb):
@@ -44,8 +44,8 @@ def train(rf, ada, gb, xgb):
         accuracy = grd.best_score_
 
 
-        #print('{} : \n Predication = {}, \n Score = {}, \n Crossvalidation = {}, \n Gridaccuracy = {} \n'.format(fit, predictions[:3], score, cv, accuracy))
-        #print('Mean train cross validation score {} \n'.format(cv['test_score'].mean()))
+        print('{} : \n Predication = {}, \n Score = {}, \n Crossvalidation = {}, \n Gridaccuracy = {} \n'.format(fit, predictions[:3], score, cv, accuracy))
+        print('Mean train cross validation score {} \n'.format(cv['test_score'].mean()))
 
     
     
