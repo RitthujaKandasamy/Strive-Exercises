@@ -1,4 +1,5 @@
 import dataset as dh
+import numpy as np
 from xgboost import XGBRegressor
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor
 from sklearn.model_selection import cross_validate, GridSearchCV
@@ -69,11 +70,11 @@ class Sub(Insurance):
 
 
         # create RF, Ada, GB, XGB in one line
-        models = [rf_reg, ada_reg, gb_reg, xgb_reg]
+        self.models = [rf_reg, ada_reg, gb_reg, xgb_reg]
 
 
         
-        for train_model in models:
+        for train_model in self.models:
             self.fits = train_model.fit(x_train, y_train)
             self.predictions = train_model.predict(x_test)
             self.score = train_model.score(x_test, y_test)
@@ -86,24 +87,43 @@ class Sub(Insurance):
 
             # dt = train_model.get_params().keys()
             parameters = {
-                        'n_estimators':[50, 100, 100, 50],
-                            'random_state': [0, 0, 0, 0]
-                    }
+                            'n_estimators':[50, 100, 100, 50],
+                            'random_state': [0, 0, 0, 0],
+                         }
                     
             grd = GridSearchCV(train_model, parameters)
-            grid_train = grd.fit(x_train, y_train)
-
+            grd.fit(x_train, y_train)
             self.accuracy = grd.best_score_
             
 
-
             #print('{} : \n Predication = {}, \n Score = {}, \n Crossvalidation = {}, \n Gridaccuracy = {} \n'.format(self.fits, self.predictions[:3], self.score, self.cv, self.accuracy))
             #print('Mean train cross validation score {} \n'.format(self.cv['test_score'].mean()))
+            print("model name: {} \n, best model: {} \n".format(self.fits, self.accuracy))
             
 
+        return rf_reg, ada_reg, gb_reg, ct, self.models
 
-        return rf_reg, ada_reg, gb_reg, xgb_reg, ct
 
+    
+    def tune_model(self):
+
+
+        # selected best model, gb accuracy is 84.9 
+        gb_reg_model = GradientBoostingRegressor()
+
+
+        #  hyparamater tuning
+        params  = {
+                       'max_depth': np.linspace(2, 7).astype(int), 
+                       'learning_rate': np.linspace(0.001, 0.1, 10)
+                    }
+
+        grid = GridSearchCV(gb_reg_model, params)
+        grid.fit(x_train, y_train)
+
+
+        print(f'grid best score: {grid.best_score_}') 
+        print(f'grid best parameters: {grid.best_params_}')
 
     
    

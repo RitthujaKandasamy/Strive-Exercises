@@ -58,12 +58,12 @@ def train_test():
 
         # dt = train_model.get_params().keys()
         parameters = {
-                    'n_estimators':[50, 100, 100, 50],
+                       'n_estimators':[50, 100, 100, 50],
                         'random_state': [0, 0, 0, 0]
-                }
+                          }
                 
         grd = GridSearchCV(train_model, parameters)
-        grid_train = grd.fit(x_train, y_train)
+        grd.fit(x_train, y_train)
         accuracy = grd.best_score_
         
 
@@ -85,8 +85,8 @@ def model_full():
 
 
     # create new data input 
-    age = st.number_input("How old are you?", key='int')
-    sex = st.radio("What is your sex? ", ('male', 'female'))
+    age = st.number_input("How old are you?")
+    sex = st.radio("What is your sex?", ('male', 'female'))
     child = st.number_input("How many children do you have?")
     smoke = st.radio("Do you smoke?", ('yes', 'no'))
     bmi = st.number_input("What is your bmi?")
@@ -99,8 +99,9 @@ def model_full():
     df = pd.DataFrame({"age":age, "sex":sex, "bmi":bmi, "child":child, "smoke":smoke, "region":region}, index = [0] )
     
     
+    # tuned GB
     gb_reg = GradientBoostingRegressor()
-    fits_new = gb_reg.fit(x_train, y_train)
+    gb_reg.fit(x_train, y_train)
 
 
     # transform new data
