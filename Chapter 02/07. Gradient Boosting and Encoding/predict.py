@@ -1,12 +1,10 @@
 import train as tr
+import numpy as np
 import pandas as pd
-from xgboost import XGBRegressor
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor
 
 
 
-model = tr.train(RandomForestRegressor(), AdaBoostRegressor(), GradientBoostingRegressor(), XGBRegressor())
-new_model = GradientBoostingRegressor(random_state = 0, n_estimators=100)
+model = tr.train_test()
 
 
 while True: 
@@ -25,12 +23,20 @@ while True:
     # create dataframe
     df = pd.DataFrame({"age":age, "sex":sex, "bmi":bmi, "child":child, "smoke":smoke, "region":region}, index = [0] )
 
+    
+    # in model 3 is Gradientbooster
+    # model -1 is columntransform
+    gb_reg_new = model[3]
+    ct_new = model[-1] 
+    
 
+    # transform new data
+    x_trans = ct_new.transform(df)
 
+    
     # predict data    
-    for new_train_model in new_model:
-        predictions = new_train_model.predict(df)
+    y_pred = np.array(gb_reg_new.predict(x_trans))
         
 
 
-    print("Prediction : {}".format(predictions))
+    print("Charges : {}".format(y_pred.mean()))
