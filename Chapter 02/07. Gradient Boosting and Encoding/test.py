@@ -21,4 +21,5 @@ insurance_sub_model = Sub(x_train, x_test, y_train, y_test)
 gb = GradientBoostingRegressor()
 fits = gb.fit(x_train, y_train)
 
+
 best_model = [gb, ct]

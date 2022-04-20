@@ -1,33 +1,33 @@
 import streamlit as st
 import numpy as np
 import pandas as pd
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor
+from sklearn.model_selection import cross_validate, GridSearchCV, train_test_split
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
-from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from xgboost import XGBRegressor
-from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor, AdaBoostRegressor
-from sklearn.model_selection import cross_validate, GridSearchCV
 
 
 
 
-st.title("Webscraping  of Top 100 Adventure Movies in IMDB")
-st.image("Downloads\\lord.jpg", use_column_width = True)
+# read data
+data = pd.read_csv(r"C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\07. Gradient Boosting and Encoding\\insurance.csv")
 
 
-
-data = pd.read_csv("C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\07. Gradient Boosting and Encoding\\insurance.csv")
-
+# split
 x_train, x_test, y_train, y_test = train_test_split(data.values[:, :-1], data.values[:, -1], test_size = 0.2, random_state = 0)
 
 
-    # preprocessing data
-    # OrdinalEncoding and Standardscaler
+
+# preprocessing data
+# OrdinalEncoding and Standardscaler
 ct = ColumnTransformer( [('ordinal', OrdinalEncoder(handle_unknown= 'use_encoded_value', unknown_value = -1) , [1, 4, 5] ), 
                              ('scaler', StandardScaler() , [0, 2] )], 
                                 remainder = 'passthrough')
 
-    
+
+
+# fit and transform
 x_train = ct.fit_transform(x_train)
 x_test = ct.transform(x_test)
 
@@ -64,25 +64,28 @@ def train_test():
                 
         grd = GridSearchCV(train_model, parameters)
         grid_train = grd.fit(x_train, y_train)
-
         accuracy = grd.best_score_
         
 
-
-        #print('{} : \n Predication = {}, \n Score = {}, \n Crossvalidation = {}, \n Gridaccuracy = {} \n'.format(self.fits, self.predictions[:3], self.score, self.cv, self.accuracy))
-        #print('Mean train cross validation score {} \n'.format(self.cv['test_score'].mean()))
-
         return rf_reg, ada_reg, gb_reg, xgb_reg, fits, predictions, score, cv, accuracy
+
         
 train_test()
 
+
+
+# title for app
+st.title("Get to know your Insurance Charges by our App")
+st.image("Downloads\\insu1.jpg", use_column_width = True)
     
 
 
 def model_full():
 
+
+
     # create new data input 
-    age = st.number_input("How old are you?")
+    age = st.number_input("How old are you?", key='int')
     sex = st.radio("What is your sex? ", ('male', 'female'))
     child = st.number_input("How many children do you have?")
     smoke = st.radio("Do you smoke?", ('yes', 'no'))
@@ -99,7 +102,7 @@ def model_full():
     gb_reg = GradientBoostingRegressor()
     fits_new = gb_reg.fit(x_train, y_train)
 
-    
+
     # transform new data
     x_trans = ct.transform(df.values)
 
@@ -107,20 +110,25 @@ def model_full():
     # predict data    
     y_pred = np.array(gb_reg.predict(x_trans))
 
-
-    st.write("\n Your predicted Charges : {}".format(round(y_pred.mean(), 3)))
-    st.write("Thank visit our app again")
     
-   
+    # print predict
+    st.header("\n Your predicted Charges : {}".format(round(y_pred.mean(), 3)))
+    st.write("Thank visit our app again")
+    st.image("Downloads\\thank1.jpg", use_column_width = True)
+
+
 
 model_full()
 
 
+
+# rating for app
 st.subheader("Give some heart for us")
 my_range = range(1, 6)
 number = st.select_slider("Choose a number", options = my_range, value = 1)
 st.write("You given us %s hearts:" %number, number*":heart:")
 
+  
 
 if number == 5:
     st.balloons()

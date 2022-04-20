@@ -71,14 +71,13 @@ class Sub(Insurance):
         # create RF, Ada, GB, XGB in one line
         models = [rf_reg, ada_reg, gb_reg, xgb_reg]
 
-        score = []
 
         
         for train_model in models:
             self.fits = train_model.fit(x_train, y_train)
             self.predictions = train_model.predict(x_test)
             self.score = train_model.score(x_test, y_test)
-            score.append(self.score)
+            
             
 
             # check crossvalidation for better result
