@@ -19,10 +19,9 @@ child = int(input("How many children do you have? \n"))
 smoke = bool(input("Do you smoke? \n"))
 bmi = float(input("What is your bmi? \n"))
 region = str(input("Choose one of the regions from this: Southwest, Southeast, Northwest, Northeast \n"))
-charges = float(input("What is the charges? \n"))
 
 # create dataframe
-df = pd.DataFrame({"age":age, "sex":sex, "bmi":bmi, "child":child, "smoke":smoke, "region":region, "charges":charges}, index = [0] )
+df = pd.DataFrame({"age":age, "sex":sex, "bmi":bmi, "child":child, "smoke":smoke, "region":region}, index = [0] )
 
 
 # split

@@ -11,6 +11,7 @@ x_train, x_test, y_train, y_test = dh.get_data("C:\\Users\\ritth\\code\\Strive\\
 # check shape 
 #print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
 
+
 def train(rf, ada, gb, xgb):
 
 
