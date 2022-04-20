@@ -71,12 +71,14 @@ class Sub(Insurance):
         # create RF, Ada, GB, XGB in one line
         models = [rf_reg, ada_reg, gb_reg, xgb_reg]
 
+        score = []
 
         
         for train_model in models:
             self.fits = train_model.fit(x_train, y_train)
             self.predictions = train_model.predict(x_test)
             self.score = train_model.score(x_test, y_test)
+            score.append(self.score)
             
 
             # check crossvalidation for better result
@@ -96,8 +98,8 @@ class Sub(Insurance):
             
 
 
-            print('{} : \n Predication = {}, \n Score = {}, \n Crossvalidation = {}, \n Gridaccuracy = {} \n'.format(self.fits, self.predictions[:3], self.score, self.cv, self.accuracy))
-            print('Mean train cross validation score {} \n'.format(self.cv['test_score'].mean()))
+            #print('{} : \n Predication = {}, \n Score = {}, \n Crossvalidation = {}, \n Gridaccuracy = {} \n'.format(self.fits, self.predictions[:3], self.score, self.cv, self.accuracy))
+            #print('Mean train cross validation score {} \n'.format(self.cv['test_score'].mean()))
             
 
 
