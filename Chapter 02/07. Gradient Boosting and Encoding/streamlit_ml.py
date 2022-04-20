@@ -74,6 +74,32 @@ train_test()
 
 
 
+def tune_model():
+
+
+        # selected best model, gb accuracy is 84.9 
+        gb_reg_model = GradientBoostingRegressor()
+
+
+        #  hyparamater tuning
+        params  = {
+                       'max_depth': np.linspace(2, 7).astype(int), 
+                       'learning_rate': np.linspace(0.001, 0.1, 10)
+                    }
+
+        grid = GridSearchCV(gb_reg_model, params)
+        grid.fit(x_train, y_train)
+        accuracy_tuned = grid.best_score_
+        para_tuned = grid.best_params_
+
+
+        return accuracy_tuned, para_tuned
+
+
+tune_model()
+
+
+
 # title for app
 st.title("Get to know your Insurance Charges by our App")
 st.image("Downloads\\insu1.jpg", use_column_width = True)
@@ -100,7 +126,7 @@ def model_full():
     
     
     # tuned GB
-    gb_reg = GradientBoostingRegressor()
+    gb_reg = GradientBoostingRegressor(random_state= 0, learning_rate= 0.056)
     gb_reg.fit(x_train, y_train)
 
 
