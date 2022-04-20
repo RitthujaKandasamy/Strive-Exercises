@@ -98,7 +98,7 @@ class Sub(Insurance):
 
             #print('{} : \n Predication = {}, \n Score = {}, \n Crossvalidation = {}, \n Gridaccuracy = {} \n'.format(self.fits, self.predictions[:3], self.score, self.cv, self.accuracy))
             #print('Mean train cross validation score {} \n'.format(self.cv['test_score'].mean()))
-            print("model name: {} \n, best model: {} \n".format(self.fits, self.accuracy))
+            #print("model name: {} \n, best model: {} \n".format(self.fits, self.accuracy))
             
 
         return rf_reg, ada_reg, gb_reg, ct, self.models
@@ -122,8 +122,8 @@ class Sub(Insurance):
         grid.fit(x_train, y_train)
 
 
-        print(f'grid best score: {grid.best_score_}') 
-        print(f'grid best parameters: {grid.best_params_}')
+        #print(f'grid best score: {grid.best_score_}') 
+        #print(f'grid best parameters: {grid.best_params_}')
 
     
    
