@@ -17,7 +17,7 @@ insurance_model = Insurance(x_train, x_test, y_train, y_test)
 
 insurance_sub_model = Sub(x_train, x_test, y_train, y_test)
 #print(insurance_sub_model.train_test())
-#print(insurance_sub_model.tune_model())
+print(insurance_sub_model.tune_model())
 
 
 

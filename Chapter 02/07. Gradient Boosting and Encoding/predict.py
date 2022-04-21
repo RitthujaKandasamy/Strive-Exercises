@@ -38,7 +38,7 @@ def model_full():
     y_pred = np.array(gb_reg_new.predict(x_trans))
 
 
-    print("\n Your predicted Charges : {}".format(round(y_pred.mean(), 3)))
+    print("\n Your predicted Charges : {}".format(y_pred.mean()))
     
 
 model_full()

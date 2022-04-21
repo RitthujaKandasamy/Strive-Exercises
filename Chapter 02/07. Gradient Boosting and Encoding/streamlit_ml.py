@@ -126,7 +126,7 @@ def model_full():
     
     
     # tuned GB
-    gb_reg = GradientBoostingRegressor()
+    gb_reg = GradientBoostingRegressor(random_state= 0, learning_rate= 0.056)
     gb_reg.fit(x_train, y_train)
 
 

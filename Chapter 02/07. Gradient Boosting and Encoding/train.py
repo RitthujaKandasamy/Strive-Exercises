@@ -98,7 +98,7 @@ class Sub(Insurance):
 
             #print('{} : \n Predication = {}, \n Score = {}, \n Crossvalidation = {}, \n Gridaccuracy = {} \n'.format(self.fits, self.predictions[:3], self.score, self.cv, self.accuracy))
             #print('Mean train cross validation score {} \n'.format(self.cv['test_score'].mean()))
-            #print("model name: {} \n, best model: {} \n".format(self.fits, self.accuracy))
+            print("model name: {} \n, best model: {} \n".format(self.fits, self.accuracy))
             
 
         return rf_reg, ada_reg, gb_reg, ct, self.models
@@ -111,19 +111,23 @@ class Sub(Insurance):
         # selected best model, gb accuracy is 84.9 
         gb_reg_model = GradientBoostingRegressor()
 
-
+              
         #  hyparamater tuning
-        params  = {
-                       'max_depth': np.linspace(2, 7).astype(int), 
+        params  = {   
+                        'n_estimators': np.linspace(50, 70, 100),
+                         'max_features': np.linspace(3, 6).astype(int),   
+                       'max_depth': np.linspace(3, 7).astype(int), 
                        'learning_rate': np.linspace(0.001, 0.1, 10)
                     }
+
+
 
         grid = GridSearchCV(gb_reg_model, params)
         grid.fit(x_train, y_train)
 
 
-        #print(f'grid best score: {grid.best_score_}') 
-        #print(f'grid best parameters: {grid.best_params_}')
+        print(f'grid best score: {grid.best_score_}') 
+        print(f'grid best parameters: {grid.best_params_}')
 
     
    
