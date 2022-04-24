@@ -24,7 +24,7 @@ def model_full():
     
 
     
-    # in model 0 is Gradientdescentregression
+    # in model 0 is Gradientboostingregression
     # model 1 is columntransform
     gb_reg_new = model[0]
     ct_new = model[1] 

@@ -114,9 +114,9 @@ class Sub(Insurance):
               
         #  hyparamater tuning
         params  = {   
-                        'n_estimators': np.linspace(50, 70, 100),
-                         'max_features': np.linspace(3, 6).astype(int),   
-                       'max_depth': np.linspace(3, 7).astype(int), 
+                        #'n_estimators': np.linspace(50, 70, 10),
+                        # 'max_features': np.linspace(3, 6).astype(int),   
+                       'max_depth': np.linspace(2, 7).astype(int), 
                        'learning_rate': np.linspace(0.001, 0.1, 10)
                     }
 

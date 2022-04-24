@@ -3,20 +3,19 @@ from numpy.testing._private.utils import decorate_methods
 import pandas   as pd
 import seaborn  as sns
 import matplotlib.pyplot as plt
-import sklearn  as skl
 import time
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, AdaBoostClassifier, GradientBoostingClassifier, HistGradientBoostingClassifier
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestRegressor, ExtraTreesRegressor, AdaBoostRegressor, GradientBoostingRegressor, HistGradientBoostingRegressor
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import OrdinalEncoder, PowerTransformer
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
-from xgboost import XGBClassifier
-from lightgbm import LGBMClassifier
-from catboost import CatBoostClassifier
+from xgboost import XGBRegressor
+from lightgbm import LGBMRegressor
+from catboost import CatBoostRegressor
 
 
 
@@ -178,6 +177,8 @@ tree_prepro = ColumnTransformer(transformers=[
 
 
 
+
+
 # create tree
 tree_classifiers = {
                         "Decision Tree": DecisionTreeRegressor(),
@@ -193,6 +194,8 @@ tree_classifiers = {
 
 
 
+
+
 ### END SOLUTION
 
 tree_classifiers = {name: make_pipeline(tree_prepro, model) for name, model in tree_classifiers.items()}
@@ -202,11 +205,18 @@ results = pd.DataFrame({'Model': [], 'MSE': [], 'MAB': [], " % error": [], 'Time
 for model_name, model in tree_classifiers.items():
     
     start_time = time.time()
+
+
+    # fit new train values
     model.fit(x_train, y_train)
     total_time = time.time() - start_time
-        
+
+
+    # predict split values    
     pred = model.predict(x_val1)
     
+
+    # append the list
     results = results.append({"Model":    model_name,
                               "MSE": mean_squared_error(y_val, pred),
                               "MAB": mean_absolute_error(y_val, pred),
@@ -219,11 +229,17 @@ for model_name, model in tree_classifiers.items():
 
 
 
+
+
+
+
 results_ord = results.sort_values(by = ['MSE'], ascending = True, ignore_index = True)
 results_ord.index += 1 
 results_ord.style.bar(subset=['MSE', 'MAE'], vmin =0, vmax =100, color ='#5fba7d')
 
 print(results_ord)
+
+
 
 
 print(y_train.max())
