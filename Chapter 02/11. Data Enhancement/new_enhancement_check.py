@@ -50,7 +50,7 @@ from catboost import CatBoostRegressor
 
 
 # read data
-data = pd.read_csv(r'data\london_merged.csv')
+data = pd.read_csv('C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\11. Data Enhancement\\data\\london_merged.csv')
 print("Data Shape: {}".format(data.shape))
 
 
@@ -217,6 +217,7 @@ for model_name, model in tree_classifiers.items():
     
 
     # append the list
+    # to find r square, we are using squared error
     results = results.append({"Model":    model_name,
                               "MSE": mean_squared_error(y_val, pred),
                               "MAB": mean_absolute_error(y_val, pred),
