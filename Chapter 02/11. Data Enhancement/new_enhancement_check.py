@@ -150,8 +150,7 @@ print("y_train shape after added New Features and before: {} and {}\n".format(y_
 
 # fit and transform data
 transformer = PowerTransformer()
-Y
-_train = transformer.fit_transform(y_train1.values.reshape(-1,1))
+Y_train = transformer.fit_transform(y_train1.values.reshape(-1,1))
 y_val = transformer.transform(y_val1.values.reshape(-1,1))
 
 
