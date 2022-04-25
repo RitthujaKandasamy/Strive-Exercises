@@ -1,92 +1,146 @@
-
-from multiprocessing import Pipe
-import numpy as np
-import pandas as pd
-from scipy import rand
-from sklearn.compose import ColumnTransformer
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler, PowerTransformer, OrdinalEncoder, LabelEncoder
-from sklearn.model_selection import train_test_split
-import time
-from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.metrics import accuracy_score, balanced_accuracy_score, plot_confusion_matrix
+import numpy    as np
+import pandas   as pd
+import seaborn  as sns
 import matplotlib.pyplot as plt
+import time
 
+from sklearn.preprocessing import StandardScaler, OrdinalEncoder
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, balanced_accuracy_score
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier, AdaBoostClassifier, GradientBoostingClassifier, HistGradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.compose import ColumnTransformer
 from xgboost import XGBClassifier
 from lightgbm import LGBMClassifier
 from catboost import CatBoostClassifier
-from sklearn.linear_model import LogisticRegression
+from sklearn.impute import SimpleImputer
 
 
+
+
+# Dataset columns:
+
+"""
+1. age: The person's age in years
+2. sex: The persons sex (1 = male, 0 = female)
+3. cp: chest pain type
+— Value 0: asymptomatic
+— Value 1: atypical angina
+— Value 2: non-anginal pain
+— Value 3: typical angina
+4. trestbps: The persons resting blood pressure (mm Hg on admission to the hospital)
+5. chol: The person's cholesterol measurement in mg/dl
+6. fbs: The person's fasting blood sugar (> 120 mg/dl, 1 = true; 0 = false)
+7. restecg: resting electrocardiographic results
+— Value 0: showing probable or definite left ventricular hypertrophy by Estes' criteria
+— Value 1: normal
+— Value 2: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV)
+8. thalach: The person's maximum heart rate achieved
+9. exang: Exercise induced angina (1 = yes; 0 = no)
+10. oldpeak: ST depression induced by exercise relative to rest ('ST' relates to positions on the ECG plot. See more here)
+11. slope: the slope of the peak exercise ST segment — 0: downsloping; 1: flat; 2: upsloping
+0: downsloping; 1: flat; 2: upsloping
+12. ca: The number of major vessels (0 - 3)
+13. thal: A blood disorder called thalassemia Value 0: NULL (dropped from the dataset previously
+- Value 1: fixed defect (no blood flow in some part of the heart)
+- Value 2: normal blood flow
+- Value 3: reversible defect (a blood flow is observed but it is not normal)
+14. target: Heart disease (1 = no, 0 = yes)
+
+"""
+
+
+
+
+# read data
 data = pd.read_csv("C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\09. Challenge\\data\\heart.csv")
+#print("Data Shape: {}".format(data.shape))
 
 
 
-# (data.corr()['output'].sort_values().plot.barh())
-(data.corr()['output'].abs().sort_values().plot.barh())
-# plt.show()
-# exng       -0.436757
-# oldpeak    -0.430696
-# caa        -0.391724
-# thall      -0.344029
-# sex        -0.280937
-# age        -0.225439
-# trtbps     -0.144931
-# chol       -0.085239
-# fbs        -0.028046
-# restecg     0.137230
-# slp         0.345877
-# thalachh    0.421741
-# cp          0.433798
-# output      1.000000
+
+#visualizing Null values if it exists 
+plt.figure(figsize = (22,10))
+plt.xticks(size = 20,color ='grey')
+plt.tick_params(size = 12,color ='grey')
+plt.title('Finding Null Values Using Heatmap\n',color ='grey',size = 30)
+sns.heatmap(data.isnull(),
+            yticklabels = False,
+            cbar = False,
+            cmap = 'PuBu_r',
+            )
+#plt.show()
 
 
-# print(data.isnull().sum()) - no missing data
+
+
+# plot correlation
+data.corr()['output'].abs().sort_values().plot.barh()
+#plt.show()
+
+
+# correlation matrix values
+"""
+exng       -0.436757
+oldpeak    -0.430696
+caa        -0.391724
+thall      -0.344029
+sex        -0.280937
+age        -0.225439
+trtbps     -0.144931
+chol       -0.085239
+fbs        -0.028046
+restecg     0.137230
+slp         0.345877
+thalachh    0.421741
+cp          0.433798
+output      1.000000
+"""
+
+
+
+
+# Take a look at nulls 0 nulls
+#print(data.isnull().sum()) 
 
 
 
 # feature generation and feature selection
-
 data['oldpeak'] = data['oldpeak'].apply(lambda x: 1 if x > 1.6 else 0)
-data.drop('chol', axis=1, inplace=True)
-data.drop('fbs', axis=1, inplace=True)
-data.drop('restecg', axis=1, inplace=True)
+data.drop('chol', axis = 1, inplace = True)
+data.drop('fbs', axis = 1, inplace = True)
+data.drop('restecg', axis = 1, inplace = True)
 #print(data.sample(10))
 
 
 
 
 # Build a data enhancer
-
 def data_enhance(data):
 
-    org_data = data
+    org_data = data.copy()
 
     for sex in data['exng'].unique():
-        sex_data = org_data[org_data['exng']==sex]
+        sex_data = org_data[org_data['exng'] == sex]
+
         age_std = sex_data['age'].std()
         trtbps_std = sex_data['trtbps'].std()
-        chol_std = sex_data['chol'].std()
         thalachh_std = sex_data['thalachh'].std()
         oldpeak_std = sex_data['oldpeak'].std()
 
 
-        for i in org_data[org_data['exng']==sex].index:
+        for i in sex_data.index:
+
             if np.random.randint(2) == 1:
                 org_data['age'].values[i] += age_std/10
                 org_data['trtbps'].values[i] += trtbps_std/10
-                org_data['chol'].values[i] += chol_std/10
                 org_data['thalachh'].values[i] += thalachh_std/10
                 org_data['oldpeak'].values[i] += oldpeak_std/10
             else:
                 org_data['age'].values[i] -= age_std/10
                 org_data['trtbps'].values[i] -= trtbps_std/10
-                org_data['chol'].values[i] -= chol_std/10
                 org_data['thalachh'].values[i] -= thalachh_std/10
                 org_data['oldpeak'].values[i] -= oldpeak_std/10
 
@@ -95,7 +149,7 @@ def data_enhance(data):
 
 
 gen = data_enhance(data)
-x = data.drop(['output'], axis=1) # features - train and val data
+x = data.drop(['output'], axis = 1) # features - train and val data
 y = data['output'] # target
 
 
@@ -124,19 +178,14 @@ y_train = pd.concat([y_train, enhanced_sample['output'] ])
 
 
 
-
-
 # Make pipelines and transform
-num_pipeline = Pipeline([
-    ('imputer', SimpleImputer(strategy ='constant', fill_value = -999)),
-    ('scaler', StandardScaler())
-])
-cat_pipeline = Pipeline([
-    ('imputer', SimpleImputer(strategy ='most_frequent'))])
+num_pipeline = Pipeline([('scaler', StandardScaler())])
+#cat_pipeline = Pipeline([('ordinal', OrdinalEncoder())])
 
-tree_pipe = ColumnTransformer([('num', num_pipeline, num_vals), ('cat', cat_pipeline, cat_vals)], remainder ='drop')
-
-
+tree_pipe = ColumnTransformer([
+                                ('num', num_pipeline, num_vals),
+                                ], 
+                                remainder ='passthrough')
 
 
 

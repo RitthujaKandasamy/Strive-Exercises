@@ -171,7 +171,7 @@ cat_4_treeModels = Pipeline(steps=[
 
 tree_prepro = ColumnTransformer(transformers=[
                               ('num', num_4_treeModels, num_vars),
-                              ('cat', cat_4_treeModels, cat_vars),
+                              ('cat', cat_4_treeModels, cat_vars)
                               ], remainder='drop') # Drop other vars not specified in num_vars or cat_vars
 
 
