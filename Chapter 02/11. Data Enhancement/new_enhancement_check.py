@@ -51,11 +51,11 @@ from catboost import CatBoostRegressor
 
 # read data
 data = pd.read_csv('C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\11. Data Enhancement\\data\\london_merged.csv')
-print("Data Shape: {}".format(data.shape))
-
+#print("Data Shape: {}".format(data.shape))
+np.random.seed(0)
 
 # Take a look at nulls 0 nulls
-print(data.isnull().sum())
+#print(data.isnull().sum())
 
 
 # lets create a 2 new feautures
@@ -68,7 +68,7 @@ data['hour'] = data['timestamp'].apply(lambda row: row.split(':')[0][-2:] )
 
 data.drop('timestamp', axis=1, inplace=True)
 
-print("After adding New Feature: {}\n".format(data.shape))
+#print("After adding New Feature: {}\n".format(data.shape))
 
 
 
@@ -104,8 +104,8 @@ def data_enhancement(data):
 
 
 gen = data_enhancement(data)
-print("Dataframe After data Enhancement: {}\n".format(gen.shape))
-print(gen.head(3))
+#print("Dataframe After data Enhancement: {}\n".format(gen.shape))
+#print(gen.head(3))
 
 
 
@@ -113,8 +113,8 @@ print(gen.head(3))
 y = data['cnt']
 x = data.drop(['cnt'], axis=1)
 
-print("Feature shape: {}\n".format(x.shape))
-print("Feature shape: {}\n".format(y.shape))
+#print("Feature shape: {}\n".format(x.shape))
+#print("Feature shape: {}\n".format(y.shape))
 
 
 
@@ -140,8 +140,8 @@ extra_sample = gen.sample(gen.shape[0] // 4)
 x_train = pd.concat([x_train1, extra_sample.drop(['cnt'], axis=1 ) ])
 y_train = pd.concat([y_train1, extra_sample['cnt'] ])
 
-print("X_train shape after added New Features and before: {} and {}\n".format(x_train, x_train1))
-print("y_train shape after added New Features and before: {} and {}\n".format(y_train, y_train1))
+#print("X_train shape after added New Features and before: {} and {}\n".format(x_train, x_train1))
+#print("y_train shape after added New Features and before: {} and {}\n".format(y_train, y_train1))
 
 
 
@@ -181,14 +181,14 @@ tree_prepro = ColumnTransformer(transformers=[
 
 # create tree
 tree_classifiers = {
-                        "Decision Tree": DecisionTreeRegressor(),
-                        "Extra Trees":   ExtraTreesRegressor(n_estimators=100),
-                        "Random Forest": RandomForestRegressor(n_estimators=100),
-                        "AdaBoost":      AdaBoostRegressor(n_estimators=100),
-                        "Skl GBM":       GradientBoostingRegressor(n_estimators=100),
+                        "Decision Tree": DecisionTreeRegressor(random_state=0),
+                        "Extra Trees":   ExtraTreesRegressor(random_state=0, n_estimators=100),
+                        "Random Forest": RandomForestRegressor(random_state=0, n_estimators=100),
+                        "AdaBoost":      AdaBoostRegressor(random_state=0, n_estimators=100),
+                        "Skl GBM":       GradientBoostingRegressor(random_state=0, n_estimators=100),
                         "XGBoost":       XGBRegressor(n_estimators=100),
-                        "LightGBM":      LGBMRegressor(n_estimators=100),
-                        "CatBoost":      CatBoostRegressor(n_estimators=100),
+                        "LightGBM":      LGBMRegressor(random_state=0, n_estimators=100),
+                        "CatBoost":      CatBoostRegressor(random_state=0, n_estimators=100),
                                }
 
 
@@ -243,7 +243,7 @@ print(results_ord)
 
 
 
-print(y_train.max())
-print(y_train.min())
-print(y_val[3])
-print(tree_classifiers['Random Forest'].predict(x_val1)[3])
+#print(y_train.max())
+#print(y_train.min())
+#print(y_val[3])
+#print(tree_classifiers['Random Forest'].predict(x_val1)[3])

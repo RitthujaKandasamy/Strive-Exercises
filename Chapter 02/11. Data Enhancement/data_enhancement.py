@@ -28,24 +28,19 @@ from catboost              import CatBoostRegressor
 
 
 # read data
-data = pd.read_csv(r'data\london_merged.csv')
+data = pd.read_csv('C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\11. Data Enhancement\\data\\london_merged.csv')
 
 np.random.seed(0)
 
 
-# clean data
-target = data['cnt']
-data = data.drop(['cnt'], axis=1)
 
 
-# Print data shape
-print(target.shape)
-print(data.shape)
+
 
 
 # Take a look at nulls 0 nulls
-print(target.isnull().sum())
-print(data.isnull().sum())
+# print(target.isnull().sum())
+# print(data.isnull().sum())
 
 
 # lets create a 2 new feautures
@@ -62,7 +57,7 @@ print(data['hour'])
 '''
 data.drop('timestamp', axis=1, inplace=True)
 
-print(data.shape)
+#print(data.shape)
 
 
 
@@ -104,8 +99,8 @@ def data_enhancement(data):
 
 
 gen = data_enhancement(data)
-print(gen.head(3))
-print(gen.shape)
+#print(gen.head(3))
+#print(gen.shape)
 
 
 
@@ -113,7 +108,7 @@ print(gen.shape)
 y = data['cnt']
 x = data.drop(['cnt'], axis=1)
 
-print(x.shape)
+#print(x.shape)
 
 
 
@@ -211,7 +206,7 @@ results_ord.style.bar(subset=['MSE', 'MAE'], vmin=0, vmax=100, color='#5fba7d')
 print(results_ord)
 
 
-print(y_train.max())
-print(y_train.min())
-print(y_val[3])
-print(tree_classifiers['Random Forest'].predict(x_val)[3])
+# print(y_train.max())
+# print(y_train.min())
+# print(y_val[3])
+# print(tree_classifiers['Random Forest'].predict(x_val)[3])

@@ -58,7 +58,7 @@ from sklearn.impute import SimpleImputer
 data = pd.read_csv("C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\09. Challenge\\data\\heart.csv")
 #print("Data Shape: {}".format(data.shape))
 
-
+np.random.seed(0)
 
 
 #visualizing Null values if it exists 
@@ -122,9 +122,9 @@ def data_enhance(data):
 
     org_data = data.copy()
 
-    for sex in data['exng'].unique():
-        sex_data = org_data[org_data['exng'] == sex]
-
+    for sex in data['sex'].unique():
+        sex_data = org_data[org_data['sex'] == sex]
+        #age_std1 = sex_data['chol'].std()
         age_std = sex_data['age'].std()
         trtbps_std = sex_data['trtbps'].std()
         thalachh_std = sex_data['thalachh'].std()
@@ -138,12 +138,13 @@ def data_enhance(data):
                 org_data['trtbps'].values[i] += trtbps_std/10
                 org_data['thalachh'].values[i] += thalachh_std/10
                 org_data['oldpeak'].values[i] += oldpeak_std/10
+                #org_data['chol'].values[i] += age_std1/10
             else:
                 org_data['age'].values[i] -= age_std/10
                 org_data['trtbps'].values[i] -= trtbps_std/10
                 org_data['thalachh'].values[i] -= thalachh_std/10
                 org_data['oldpeak'].values[i] -= oldpeak_std/10
-
+                #org_data['chol'].values[i] -= age_std1/10
     return org_data
 
 
