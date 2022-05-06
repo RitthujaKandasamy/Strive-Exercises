@@ -56,7 +56,7 @@ new_data = pd.DataFrame(new_x)
 
 
 
-# dtaframe result
+# dataframe result
 
 """
 

@@ -12,7 +12,6 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.pipeline import Pipeline
 from xgboost import XGBRegressor
 from lightgbm import LGBMRegressor
-from sklearn.svm import SVR
 
 
 
@@ -28,7 +27,6 @@ tree_classifiers = {
                         "AdaBoost":      AdaBoostRegressor(random_state=0),
                         "Skl GBM":       GradientBoostingRegressor(random_state=0),
                         "XGBoost":       XGBRegressor(),
-                        #"SVM":           SVR(),
                         "LightGBM":      LGBMRegressor(random_state=0),
                                }
 
@@ -63,19 +61,6 @@ results_ord = results.sort_values(by = ['MSE'], ascending = True, ignore_index =
 print(results_ord)
 
 
-
-
-# final model
-# best_model = tree_classifiers.get("LightGBM")
-
-# best_model.fit(x_train, y_train)
-
-# preds = best_model.predict(x_val)
-    
-    
-
-# # Saving model
-# joblib.dump(best_model, 'best_model.joblib')
 
 
 
