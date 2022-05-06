@@ -16,11 +16,10 @@ data.corr()['T (degC)'].abs().sort_values().plot.barh()
 
 
 
-# apply SelectKBest class to extract top best features
-bestfeatures = SelectKBest(score_func = chi2, k = 10)
-fit = bestfeatures.fit(new_data, y)
-dfscores = pd.DataFrame(fit.scores_)
-dfcolumns = pd.DataFrame(new_data.columns) 
-featureScores = pd.concat([dfcolumns, dfscores], axis = 1)
-featureScores.columns = ['Specs', 'Score']  
-print(featureScores.nlargest(15, 'Score'))  
+matrix = new_data.corr()
+sns.heatmap(matrix, annot=True, vmax=1, vmin=-1, center=0, cmap='vlag')
+#plt.show()
+
+matrix = data.corr()
+sns.heatmap(matrix, annot=True, vmax=1, vmin=-1, center=0, cmap='vlag')
+plt.show()
