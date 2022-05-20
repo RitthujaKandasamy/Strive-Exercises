@@ -3,22 +3,22 @@ import pandas as pd
 
 # Read dataset to pandas dataframe
 data = pd.read_csv("C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 02\\09. Challenge\\kaggle\\train.csv\\train.csv")
-print(data.head())
-print("data shape: {} \n".format(data.shape))
-print(data.info())
+# print(data.head())
+# print("data shape: {} \n".format(data.shape))
+# print(data.info())
 
 
 # checking for duplicated rows
 duplicated_data = data.duplicated()
-print("\n Total duplicated values: {}".format(duplicated_data.sum()))
-print(data[duplicated_data])
+# print("\n Total duplicated values: {}".format(duplicated_data.sum()))
+# print(data[duplicated_data])
 
 
 
-# create X,y
+# create X, y
 X = data.drop(['target'], axis = 1)
 y = data['target']
-print("\n Feature shape: {}, Target shape: {} \n".format(X.shape, y.shape))
+#print("\n Feature shape: {}, Target shape: {} \n".format(X.shape, y.shape))
 
 
 
@@ -28,7 +28,7 @@ for i in data.columns:
     unique_count = data[i].value_counts().count()
     unique_values.append([unique_count])
 unique_data = pd.DataFrame(unique_values, index = data.columns, columns = ['Unique values count'] )
-print(unique_data)
+#print(unique_data)
 
 
 
