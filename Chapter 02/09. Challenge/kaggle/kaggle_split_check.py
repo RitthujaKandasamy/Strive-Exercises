@@ -9,8 +9,8 @@ from sklearn.model_selection import train_test_split
 # split data
 x_train, x_val, y_train, y_val = train_test_split(X, y, test_size = 0.2, random_state = 0, stratify = y)
 
-print(x_train.shape, x_val.shape, y_train.shape, y_val.shape)
-print(type(x_train))
+# print(x_train.shape, x_val.shape, y_train.shape, y_val.shape)
+# print(type(x_train))
 
 
 # create new list and dataframe to store values
@@ -24,20 +24,51 @@ for model_name, model in tree_classifiers.items():
     
     # predict and fit split data
     model.fit(x_train, y_train)
-#     total_time = time.time() - start_time
-#     pred =  model.predict(x_val)
+    total_time = time.time() - start_time
+    pred =  model.predict(x_val)
 
 
-#     # store values
-#     results = results.append({
-#                               "Model":    model_name,
-#                               "Accuracy": accuracy_score(y_val, pred)*100,
-#                               "Bal Acc.": balanced_accuracy_score(y_val, pred)*100,
-#                               "Time":     total_time},
-#                               ignore_index = True)
+    # store values
+    results = results.append({
+                              "Model":    model_name,
+                              "Accuracy": accuracy_score(y_val, pred)*100,
+                              "Bal Acc.": balanced_accuracy_score(y_val, pred)*100,
+                              "Time":     total_time},
+                              ignore_index = True)
 
 
-# results_order = results.sort_values(by = ['Accuracy'], ascending = False, ignore_index = True)
+results_order = results.sort_values(by = ['Accuracy'], ascending = False, ignore_index = True)
 
 
-# print(results_order)
+print(results_order)
+
+
+
+
+
+
+
+
+
+
+# with f_27 column
+"""
+Model   Accuracy   Bal Acc.         Time
+0        Skl GBM  70.797778  71.084717  1027.086682
+1       AdaBoost  63.119444  63.402561   242.145665
+2  Decision Tree  61.122222  61.131221    64.494024
+"""
+
+# without f_27 column
+"""
+      Model   Accuracy   Bal Acc.       Time
+0  LightGBM  82.001111  81.966445  12.972682
+"""
+
+# with f_27 column
+"""
+       Model   Accuracy   Bal Acc.       Time
+0  LightGBM  79.444444  79.583503  17.692861
+"""
+
+
