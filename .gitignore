@@ -153,3 +153,5 @@ cython_debug/
 Chapter 02/04. LogReg/Logistic-Regression-grp-I-R/
 Chapter 02/09. Challenge/Heart_disease_dataset_analysis/
 Chapter 02/09. Challenge/Hipocratia_challenge/
+*.zip
+Chapter 02/09. Challenge/kaggle/train.csv/train.csv
