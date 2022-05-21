@@ -28,14 +28,14 @@ tree_prepr = ColumnTransformer( [('num', num_preprocessing, num_var), ('cat', ca
 
 # create dict. to store all tree
 tree_classifiers = {
-                      "Decision Tree": DecisionTreeClassifier(random_state=0),
-                      "Extra Trees": ExtraTreesClassifier(random_state=0),
-                      #"Random Forest": RandomForestClassifier(random_state=0),
-                      "AdaBoost": AdaBoostClassifier(random_state=0),
-                      "Skl GBM": GradientBoostingClassifier(random_state=0),
+                    #   "Decision Tree": DecisionTreeClassifier(random_state=0),
+                       "Extra Trees": ExtraTreesClassifier(random_state=0),
+                      "Random Forest": RandomForestClassifier(random_state=0),
+                    #   "AdaBoost": AdaBoostClassifier(random_state=0),
+                    #   "Skl GBM": GradientBoostingClassifier(random_state=0),
                     #   "Skl HistGBM": HistGradientBoostingClassifier(random_state=0),
                        "XGBoost": XGBClassifier(),
-                      # "LightGBM": LGBMClassifier(random_state=0),
+                     # "LightGBM": LGBMClassifier(random_state=0),
                     #   "CatBoost": CatBoostClassifier(random_state=0)
                       }
                       

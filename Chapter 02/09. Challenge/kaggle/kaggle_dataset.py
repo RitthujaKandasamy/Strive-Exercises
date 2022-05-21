@@ -19,7 +19,7 @@ duplicated_data = data.duplicated()
 
 
 # create X, y
-X = data.drop(['target', 'id', 'f_27', 'f_04', 'f_03', 'f_12', 'f_06', 'f_17', 'f_07', 'f_18'], axis = 1)
+X = data.drop(['target', 'id', 'f_04', 'f_03', 'f_12', 'f_06', 'f_17', 'f_07', 'f_18'], axis = 1)
 y = data['target']
 #print("\n Feature shape: {}, Target shape: {} \n".format(X.shape, y.shape))
 
@@ -36,5 +36,5 @@ unique_data = pd.DataFrame(unique_values, index = data.columns, columns = ['Uniq
 
 
 # take categorial and numerical data for pipeline usage        
-cat_var = ['f_30', 'f_29','f_16','f_15','f_14','f_13','f_11','f_10','f_09','f_08']
+cat_var = ['f_30', 'f_29','f_16','f_15','f_14','f_13','f_11','f_10','f_09','f_08', 'f_27']
 num_var = ['f_28','f_26','f_25','f_24','f_23','f_22','f_21','f_20','f_19','f_05', 'f_02','f_01','f_00']

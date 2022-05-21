@@ -53,7 +53,7 @@ print(results_order)
 
 # with f_27 column
 """
-Model   Accuracy   Bal Acc.         Time
+           Model   Accuracy   Bal Acc.         Time
 0        Skl GBM  70.797778  71.084717  1027.086682
 1       AdaBoost  63.119444  63.402561   242.145665
 2  Decision Tree  61.122222  61.131221    64.494024
@@ -67,8 +67,19 @@ Model   Accuracy   Bal Acc.         Time
 
 # with f_27 column
 """
-       Model   Accuracy   Bal Acc.       Time
+     Model   Accuracy   Bal Acc.       Time
 0  LightGBM  79.444444  79.583503  17.692861
 """
 
+# drop some columns with f_27 column
+"""
+      Model   Accuracy  Bal Acc.       Time
+0  LightGBM  80.947778   80.9109  11.685616
+"""
+
+# drop some columns without f_27 column
+"""
+    Model   Accuracy   Bal Acc.       Time
+0  LightGBM  78.348333  78.466054  18.662264
+"""
 
