@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from sklearn.model_selection import train_test_split
 
-
+torch.manual_seed(0)
 
 
 # load data for model
@@ -45,7 +45,7 @@ def load_data(pth):
     #print(x_train)
 
 
-    return x_train, x_test, y_train, y_test, x
+    return x_train, x_test, y_train, y_test
 
 
 #load_data("C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 03\\03. MLP Regression\\data\\turkish_stocks.csv")
@@ -57,9 +57,8 @@ def load_data(pth):
 #(100, 1) -> (10,10,1)
 
 
-def to_batches(pth, batch_size):
+def to_batches(x_train, x_test, y_train, y_test, batch_size):
 
-    x_train, x_test, y_train, y_test, x  = load_data(pth)
 
     n_batches = x_train.shape[0] // batch_size # 482 / 64 = 7.53125 --> 7 
     n_batches_test = x_test.shape[0] // batch_size
@@ -87,7 +86,7 @@ def to_batches(pth, batch_size):
     y_test = y_test[ :batch_size * n_batches_test ].reshape(n_batches_test, batch_size, 1)
 
 
-    return x_train, x_test, y_train, y_test, x
+    return x_train, x_test, y_train, y_test
 
 
 #to_batches("C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 03\\03. MLP Regression\\data\\turkish_stocks.csv", 64)

@@ -14,18 +14,27 @@ import numpy as np
 
 # put pth and batchsize
 pth = "C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 03\\03. MLP Regression\\data\\turkish_stocks.csv"
-x_train, x_test, y_train, y_test, x = dh.to_batches(pth, batch_size = 64)
+x_train, x_test, y_train, y_test = dh.load_data(pth)
+
+x_train, x_test, y_train, y_test = dh.to_batches(x_train, x_test, y_train, y_test, batch_size= 15)
+
+#print(x_train.shape, y_train.shape, x_test.shape, y_test.shape)
+
 
 
 # import model
-model = m.NeuralNetwork(x.shape[1], 10, 1)
+model = m.NeuralNetwork(x_train.shape[2], hidden_sizes= [600, 400, 200, 100], output_size= 1)
+
+#print(model)
+
+
 
 
 # train
-def train(x_train, y_train, x_test, y_test, num_epochs, model, lr, print_every, batch):
+def train(x_train, y_train, x_test, y_test, num_epochs, model, lr, print_every):
 
     optimizer = torch.optim.Adam(model.parameters(), lr)
-    criterion = nn.MSELoss()
+    criterion = nn.L1Loss()             # L1 is mean absoult error used in small value errors
     trainloss = []
     testloss = []
 
@@ -34,10 +43,10 @@ def train(x_train, y_train, x_test, y_test, num_epochs, model, lr, print_every, 
         epoch_list = []
         running_loss = 0
 
-        for i in range(x_train.shape[1]):
+        for  i, (x_train_batches, y_train_batches) in enumerate(zip(x_train, y_train)):
             model.train()              # model in training model
-            y_pred = model.forward(x_train)
-            loss = criterion(y_pred, y_train)
+            y_pred = model(x_train_batches)
+            loss = criterion(y_pred, y_train_batches)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -58,18 +67,33 @@ def train(x_train, y_train, x_test, y_test, num_epochs, model, lr, print_every, 
         # test
         model.eval()
         with torch.no_grad():
-            test_pred = model.forward(x_test)
-            test_loss = criterion(test_pred, y_test)
-            testloss.append(test_loss.item())
-        #model.train()
+
+            test_epoch_list = []
+
+            for j, (x_test_batches,y_test_batches) in enumerate(zip(x_test, y_test)):
+                test_pred = model(x_test_batches)
+                test_loss = criterion(test_pred, y_test_batches)
+
+                # store loss
+                test_epoch_list.append(test_loss.item())
+                
+        mean_epoch_losses_test = sum(test_epoch_list)/len(test_epoch_list)
+        testloss.append(mean_epoch_losses_test)
+
+        
 
     #print(f'Epoch: {epoch + 1}, train loss: {trainloss:.2f}, test loss: {test_losses:.2f}')
 
 
-    plt.plot(trainloss, label = 'Train Loss')
-    plt.plot(testloss, label = 'Test Loss')
+
+# plot
+    plt.title("Loss for Train and Test")
+    plt.plot(trainloss, marker = 'o', label = 'Train Loss')
+    plt.plot(testloss, marker = 'o', label = 'Test Loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
     plt.legend()
     plt.show()
 
 
-train(x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test, num_epochs = 200, model=model, lr= 0.01, print_every= 40, batch= 10)
+train(x_train=x_train, y_train=y_train, x_test=x_test, y_test=y_test, num_epochs = 50, model=model, lr= 0.01, print_every= 40)

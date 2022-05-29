@@ -13,13 +13,13 @@ def NeuralNetwork(input_size, hidden_sizes, output_size):
 	
        mlpmodel = nn.Sequential(OrderedDict([
           ('fc1',   nn.Linear(input_size, hidden_sizes[0])),
-          ('linear1', nn.Linear()),
-          ('fc2',   nn.Linear(hidden_sizes[0], hidden_sizes[1])),
           ('relu1', nn.ReLU()),
+          ('fc2',   nn.Linear(hidden_sizes[0], hidden_sizes[1])),
+          ('relu2', nn.ReLU()),
           ('fc3', nn.Linear(hidden_sizes[1], hidden_sizes[2])),
-		  ('relu2', nn.ReLU()),
+		  ('relu3', nn.ReLU()),
           ('fc4',   nn.Linear(hidden_sizes[2], hidden_sizes[3])),
-          ('linear2', nn.Linear()),
+          ('relu4', nn.ReLU()),
           ('output', nn.Linear(hidden_sizes[3], output_size))
 
 		  ]))
