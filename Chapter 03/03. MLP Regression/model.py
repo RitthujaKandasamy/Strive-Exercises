@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 
 
-# construct the neural network archiecture
+# construct the neural network architecture
 def NeuralNetwork(input_size, hidden_sizes, output_size):
 
 	
