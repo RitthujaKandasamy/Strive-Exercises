@@ -7,15 +7,20 @@ from collections import OrderedDict
 
 
 
+# constructe the neural network archiecture
+def NeuralNetwork(input_layer, hidden_layer):
 
-def NeuralNetwork(Features, hidden, target):
-
-	# construct a sequential neural network
-	mlpModel = nn.Sequential(OrderedDict([
-		("hidden_layer", nn.Linear(Features, hidden)),
-		#("activation_function", nn.Linear()),
-		("output_layer", nn.Linear(hidden, target))
-	]))
 	
-	return mlpModel
-       
+       mlpmodel = nn.Sequential(
+        nn.Linear(input_layer, hidden_layer[0]),  
+        nn.Linear(),
+        nn.Linear(hidden_layer[0], hidden_layer[1]),  
+        nn.ReLU(),
+        nn.Linear(hidden_layer[1], hidden_layer[2]),  
+        nn.ReLU(),
+        nn.Linear(hidden_layer[2], hidden_layer[3]), 
+		nn.Linear(),
+		nn.Linear(hidden_layer[3], 1)
+
+    )
+       return mlpmodel
