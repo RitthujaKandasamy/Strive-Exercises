@@ -69,14 +69,19 @@ def train(x_train, y_train, x_test, y_test, num_epochs, model, lr, print_every):
         with torch.no_grad():
 
             test_epoch_list = []
+            acc = []
+            
 
             for j, (x_test_batches,y_test_batches) in enumerate(zip(x_test, y_test)):
                 test_pred = model(x_test_batches)
+                #preds = model.view(len(y_test_batches))
                 test_loss = criterion(test_pred, y_test_batches)
 
                 # store loss
                 test_epoch_list.append(test_loss.item())
-                
+                n_correct = torch.sum((torch.abs(x_test_batches[0] - y_test_batches[0]) < torch.abs(10 * y_test_batches[0])))
+                acc.append(n_correct.item() * 100.0 / len(y_test_batches[0]))
+
         mean_epoch_losses_test = sum(test_epoch_list)/len(test_epoch_list)
         testloss.append(mean_epoch_losses_test)
 
@@ -90,6 +95,7 @@ def train(x_train, y_train, x_test, y_test, num_epochs, model, lr, print_every):
     plt.title("Loss for Train and Test")
     plt.plot(trainloss, marker = 'o', label = 'Train Loss')
     plt.plot(testloss, marker = 'o', label = 'Test Loss')
+    #plt.plot(acc, marker = 'o', label = 'Accuracy')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.legend()
