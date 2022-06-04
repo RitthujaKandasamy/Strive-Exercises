@@ -9,9 +9,17 @@ from torchvision import transforms, models
 
 
 
+
+st.set_option('deprecation.showfileUploaderEncoding', False)
+
+@st.cache(allow_output_mutation=True)
+
+
+
+
+
 def load_model():
     model = models.resnext50_32x4d(pretrained = True)
-
     inputs = model.fc.in_features
     outputs = 6
 
@@ -21,32 +29,22 @@ def load_model():
     return model
 
 
+
 def load_labels():
     labels_path = 'C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 03\\08. Birds CNN\\images_classification.txt'
-    labels_file = os.path.basename(labels_path)
-    if not os.path.exists(labels_file):
-        wget.download(labels_path)
-    with open(labels_file, "r") as f:
+    # labels_file = os.path.basename(labels_path)
+    # if not os.path.exists(labels_file):
+    #     wget.download(labels_path)
+    with open(labels_path, "r") as f:
         categories = [s.strip() for s in f.readlines()]
         return categories
 
 
 
-def load_image():
-    uploaded_file = st.file_uploader(label = 'Pick an image to test')
-    if uploaded_file is not None:
-        image_data = uploaded_file.getvalue()
-        st.image(image_data)
-        return Image.open(io.BytesIO(image_data))
-    else:
-        return None
-
-
-
 def predict(model, categories, image):
     preprocess = transforms.Compose([
-                                        transforms.Resize(150, 150),
-                                        #transforms.CenterCrop(124),
+                                        transforms.Resize(150),
+                                        transforms.CenterCrop(124),
                                         transforms.ToTensor(),
                                         transforms.Normalize(
                                             mean=[0.485, 0.456, 0.406], 
@@ -60,24 +58,39 @@ def predict(model, categories, image):
     with torch.no_grad():
         output = model(input_batch)
 
-    probabilities = torch.nn.functional.softmax(output, dim=1)
+    probabilities = torch.nn.functional.softmax(output, dim=1)[0] * 100
 
     top5_prob, top5_catid = torch.topk(probabilities, 5)
     for i in range(top5_prob.size(0)):
         st.write(categories[top5_catid[i]], top5_prob[i].item())
+    
+
+
+
+def load_image():
+    uploaded_file = st.file_uploader(label = 'Pick an image to test', type=["jpg", "png"])
+    if uploaded_file is not None:
+        image_data = uploaded_file.getvalue()
+        st.image(image_data, caption="Input Image", width = 400)
+        return Image.open(io.BytesIO(image_data))
+    
+    else:
+        st.write('Waiting for upload....')
+        return None
 
 
 
 
 def main():
-    st.title('Intel Classification')
+    st.title('Intel Image Classification Application')
     model = load_model()
     categories = load_labels()
-    image = load_image()
+    image = load_image()  
     result = st.button('Run on image')
     if result:
-        st.write('Calculating results...')
         predict(model, categories, image)
+    else:
+        st.write('Calculating results...')
 
 
 
