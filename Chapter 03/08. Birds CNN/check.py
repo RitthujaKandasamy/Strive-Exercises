@@ -59,10 +59,13 @@ def predict(model, categories, image):
         output = model(input_batch)
 
     probabilities = torch.nn.functional.softmax(output, dim=1)[0] * 100
+    st.header("The image is a " + categories[np.argmax(probabilities)])
 
-    top5_prob, top5_catid = torch.topk(probabilities, 5)
-    for i in range(top5_prob.size(0)):
-        st.write(categories[top5_catid[i]], top5_prob[i].item())
+    
+    top5_prob, top5_catid = torch.topk(probabilities, 6)
+    with st.expander("Calculating results... "):
+         for i in range(top5_prob.size(0)):
+            st.write(categories[top5_catid[i]], top5_prob[i].item())
     
 
 
@@ -88,10 +91,8 @@ def main():
     image = load_image()  
     result = st.button('Run on image')
     if result:
-        predict(model, categories, image)
-    else:
-        st.write('Calculating results...')
-
+             predict(model, categories, image)
+    
 
 
 if __name__ == '__main__':
