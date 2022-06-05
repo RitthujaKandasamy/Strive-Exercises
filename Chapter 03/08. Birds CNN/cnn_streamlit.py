@@ -5,6 +5,8 @@ import wget
 import io
 from PIL import Image
 import numpy as np
+import requests
+import base64
 from torchvision import transforms, models
 import streamlit.components.v1 as stc
 from streamlit_option_menu import option_menu
@@ -92,13 +94,31 @@ def load_image():
 
 
 
+# app logo
+def load_lottieurl(url: str):
+    r = requests.get(url)
+    if r.status_code != 200:
+        return None
+    return r.json()
+
+with st.sidebar:
+
+    lottie_url = "https://assets1.lottiefiles.com/packages/lf20_0zv8teye.json"
+    lottie_json = load_lottieurl(lottie_url)
+    st_lottie(lottie_json, height=300)
+
+
+
+
+
+
 
 # Menu
 
 with st.sidebar:
     
     app_mode = option_menu(None, ["Home", "App"],
-                        icons=['house', 'person-circle', 'person-plus', 'lock'],
+                        icons=['house', 'person-circle'],
                         menu_icon="app-indicator", default_index=0,
                         styles={
         "container": {"padding": "5!important", "background-color": "#f0f2f6"},
@@ -114,19 +134,28 @@ with st.sidebar:
 
 # Home page
 if app_mode == 'Home':
-    st.title('**Fitness Software using TMD dataset**')
-    st.write("##")
+
+    # title
+    HTML_BANNER = """
+    <div style="background-color:#161c82;padding:10px;border-radius:10px">
+    <h1 style="color:white;text-align:center;">Intel Image Classification Application </h1>
+    </div>
+    """
+    stc.html(HTML_BANNER)
+    
+
 
     # Gif from local file
-    file_ = open("C:\\Users\\ritth\\code\\Strive\\Google-Fit\\images\\gif_test.gif", "rb")
+    file_ = open("Downloads\\travel_2.gif", "rb")
     contents = file_.read()
     data_url = base64.b64encode(contents).decode("utf-8")
     file_.close()
 
     st.markdown(
         f'<img src="data:image/gif;base64,{data_url}" alt="test gif">',
-        unsafe_allow_html=True,
+        unsafe_allow_html= True
     )
+
 
     # Description
     st.markdown('\n')
@@ -138,16 +167,16 @@ if app_mode == 'Home':
     
     # Team Img
     st.title('**Our Team**')
-    st.image("Downloads\\Our_Team.PNG", use_column_width = True)
+    st.image("Downloads\\team.PNG", use_column_width = True)
 
 
     # Plot for learning curve
-    st.title('**Some results**')
-    st.subheader('**Check null-values**')
-    st.image("Downloads\\miss_val.jpg", use_column_width = True)
+    st.title('**Our result**')
+    st.subheader('**Learning Curve**')
+    st.image("Downloads\\learning_curve.PNG", use_column_width = True)
     with st.expander('See explanation'):
          st.write('The white part on the plot represent the missing values.')
-    st.write("##")
+
 
 
 
@@ -156,27 +185,28 @@ if app_mode == 'Home':
 
 
 # Sign in
-elif app_mode == 'Sign in':
+elif app_mode == 'App':
     
 
     # title
     HTML_BANNER = """
-    <div style="background-color:#464e5f;padding:10px;border-radius:10px">
-    <h1 style="color:white;text-align:center;">Welcome back 👋 </h1>
+    <div style="background-color:#161c82;padding:10px;border-radius:10px">
+    <h1 style="color:white;text-align:center;">Intel Image Classification Application </h1>
     </div>
     """
     stc.html(HTML_BANNER)
 
     def main():
-        st.title('Intel Image Classification Application')
+        
         model = load_model()
         categories = load_labels()
         image = load_image()  
         result = st.button('Run on image')
+
         if result:
-                    predict(model, categories, image)
+                 predict(model, categories, image)
 
 
 
-if __name__ == '__main__':
-    main()
+    if __name__ == '__main__':
+             main()
