@@ -282,9 +282,12 @@ else:
     st.markdown('\n')
     st.markdown('\n')
     st.markdown('\n')
-    
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+
     # Gif from local file
-    file_ = open("Downloads\\log.gif", "rb")
+    file_ = open("Downloads\\logout.gif", "rb")
     contents = file_.read()
     data_url = base64.b64encode(contents).decode("utf-8")
     file_.close()
