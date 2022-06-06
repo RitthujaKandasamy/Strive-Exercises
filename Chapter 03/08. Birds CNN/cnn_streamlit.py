@@ -83,7 +83,7 @@ def load_image():
     uploaded_file = st.file_uploader(label = 'Pick an image to test', type=["jpg", "png"])
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
-        st.image(image_data, caption = "Input Image", width = 1000)
+        st.image(image_data, caption = "Input Image", width = 700)
         return Image.open(io.BytesIO(image_data))
     
     else:
@@ -97,8 +97,8 @@ def load_image():
 
 # Menu   
 app_mode = option_menu(menu_title = None, 
-                    options = ["HOME", "APP", "Classification App", "ABOUT", "LOGOUT"],
-                    icons = ['house', 'book', 'app', 'person-circle', 'lock'],
+                    options = ["HOME", "APP", "DESTINATION", "ABOUT US", "LOGOUT"],
+                    icons = ['house', 'book', 'camera', 'person-circle', 'lock'],
                     menu_icon = "app-indicator", 
                     default_index = 0,
                     orientation = "horizontal",
@@ -139,7 +139,7 @@ if app_mode == 'HOME':
     file_.close()
 
     st.markdown(
-        f'<center><img src="data:image/gif;base64,{data_url}" alt="test gif"></center>',
+        f'<center><img src="data:image/gif;base64,{data_url}" alt="test gif" style="width: 800px"></center>',
         unsafe_allow_html= True
     )
 
@@ -159,6 +159,8 @@ if app_mode == 'HOME':
     st.markdown('\n')
     st.markdown('\n')
     st.subheader("Data Collected")
+    link = "https://www.kaggle.com/datasets/puneet6060/intel-image-classification"
+    st.markdown(link, unsafe_allow_html = True)
 
     
 
@@ -203,7 +205,7 @@ elif app_mode == 'APP':
 
 
 # classification app
-elif app_mode == 'Classification App':
+elif app_mode == 'DESTINATION':
     
     # title
     st.markdown('\n')
@@ -253,26 +255,27 @@ elif app_mode == 'Classification App':
 
 
 # about us
-elif app_mode == "ABOUT":
+elif app_mode == "ABOUT US":
 
    # title
     st.markdown('\n')
     st.markdown('\n')
     st.markdown('\n')
     st.markdown('\n')
-
-    HTML_BANNER = """
-    <center><div style="background-color:#3a7ff0;padding:10px;border-radius:10px;width:800px">
-    <h1 style="color:white;text-align:center;"> Our Team Members </h1>
-    </div></center>
-    """
-    stc.html(HTML_BANNER)
+    
 
 
-    st.image("Downloads\\team.PNG", use_column_width = True)
+    # Gif from local file
+    file_ = open("Downloads\\team.gif", "rb")
+    contents = file_.read()
+    data_url = base64.b64encode(contents).decode("utf-8")
+    file_.close()
 
-
-
+    st.markdown(
+        f'<center><img src="data:image/gif;base64,{data_url}" alt="test gif" style="width: 600px"></center>',
+        unsafe_allow_html= True
+    )
+    
 
 
 # logout
