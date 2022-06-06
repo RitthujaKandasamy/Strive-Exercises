@@ -5,12 +5,12 @@ import wget
 import io
 from PIL import Image
 import numpy as np
-import requests
 import base64
+import shutil
 from torchvision import transforms, models
 import streamlit.components.v1 as stc
 from streamlit_option_menu import option_menu
-from streamlit_lottie import st_lottie
+
 
 
 
@@ -79,12 +79,11 @@ def predict(model, categories, image):
     
 
 
-
 def load_image():
     uploaded_file = st.file_uploader(label = 'Pick an image to test', type=["jpg", "png"])
     if uploaded_file is not None:
         image_data = uploaded_file.getvalue()
-        st.image(image_data, caption="Input Image", width = 400)
+        st.image(image_data, caption = "Input Image", width = 1000)
         return Image.open(io.BytesIO(image_data))
     
     else:
@@ -94,107 +93,96 @@ def load_image():
 
 
 
-# app logo
-def load_lottieurl(url: str):
-    r = requests.get(url)
-    if r.status_code != 200:
-        return None
-    return r.json()
-
-with st.sidebar:
-
-    lottie_url = "https://assets1.lottiefiles.com/packages/lf20_0zv8teye.json"
-    lottie_json = load_lottieurl(lottie_url)
-    st_lottie(lottie_json, height=300)
 
 
-
-
-
-
-
-# Menu
-
-with st.sidebar:
-    
-    app_mode = option_menu(None, ["Home", "App"],
-                        icons=['house', 'person-circle'],
-                        menu_icon="app-indicator", default_index=0,
-                        styles={
-        "container": {"padding": "5!important", "background-color": "#f0f2f6"},
-        "icon": {"color": "orange", "font-size": "28px"}, 
-        "nav-link": {"font-size": "16px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
-        "nav-link-selected": {"background-color": "#2C3845"}
-    }
-    )
-
+# Menu   
+app_mode = option_menu(menu_title = None, 
+                    options = ["HOME", "APP", "Classification App", "ABOUT", "LOGOUT"],
+                    icons = ['house', 'book', 'app', 'person-circle', 'lock'],
+                    menu_icon = "app-indicator", 
+                    default_index = 0,
+                    orientation = "horizontal",
+                    styles = {
+    "container": {"padding": "5!important", "background-color": "#f0f2f6"},
+    "icon": {"color": "orange", "font-size": "28px"}, 
+    "nav-link": {"font-size": "18px", "text-align": "left", "margin":"0px", "--hover-color": "#eee"},
+    "nav-link-selected": {"background-color": "#2C3845"}
+})
 
 
 
 
 # Home page
-if app_mode == 'Home':
+if app_mode == 'HOME':
 
     # title
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+   
+
     HTML_BANNER = """
-    <div style="background-color:#161c82;padding:10px;border-radius:10px">
-    <h1 style="color:white;text-align:center;">Intel Image Classification Application </h1>
-    </div>
+    <center><div style="background-color:#3a7ff0;padding:10px;border-radius:10px;width:800px">
+    <h1 style="color:white;text-align:center;">Natural Scenes Images Classification </h1>
+    </div></center>
     """
     stc.html(HTML_BANNER)
+
+    st.markdown('###')
     
-
-
+    
     # Gif from local file
-    file_ = open("Downloads\\travel_2.gif", "rb")
+    file_ = open("Downloads\\img_gif.gif", "rb")
     contents = file_.read()
     data_url = base64.b64encode(contents).decode("utf-8")
     file_.close()
 
     st.markdown(
-        f'<img src="data:image/gif;base64,{data_url}" alt="test gif">',
+        f'<center><img src="data:image/gif;base64,{data_url}" alt="test gif"></center>',
         unsafe_allow_html= True
     )
 
 
     # Description
+    st.markdown('###')
+    st.header("About this app    -->")
+    st.markdown('###')
+    st.markdown('The Intel Image Classification contains 25k images of size 150x150 distributed under 6 categories: buildings, forest, glacier, mountain, sea, street.')
+    st.markdown('The Train, Test and Prediction data is separated in each zip files. There are around 14k images in Train, 3k in Test and 7k in Prediction.')
+    st.markdown("This project is about creating a CNN model able to classify an image. Additionally, the app can receive a folder of mixed images, creates subfolders into which to classify the images.")
+    st.markdown("...")
     st.markdown('\n')
     st.markdown('\n')
-    st.markdown('The main goal is to develop a fitness and user transport mode detection software able to be used in plug and play style into most apps and smart watches.')
-    st.markdown('One of the main ideas behind the project is to facilitate the transport mode detection and calories counting, making it more precise.')
-    st.markdown("Raw data was given to us in order to train our ML models and try to predict outcomes for the user.")
-    
-    
-    # Team Img
-    st.title('**Our Team**')
-    st.image("Downloads\\team.PNG", use_column_width = True)
+    st.subheader("Updated on")
+    st.markdown("June 06, 2022")
+    st.markdown('\n')
+    st.markdown('\n')
+    st.subheader("Data Collected")
 
-
-    # Plot for learning curve
-    st.title('**Our result**')
-    st.subheader('**Learning Curve**')
-    st.image("Downloads\\learning_curve.PNG", use_column_width = True)
-    with st.expander('See explanation'):
-         st.write('The white part on the plot represent the missing values.')
-
-
-
-
-
-
-
-
-# Sign in
-elif app_mode == 'App':
     
 
+    
+
+    
+
+
+# app
+elif app_mode == 'APP':
+    
     # title
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+
     HTML_BANNER = """
-    <div style="background-color:#161c82;padding:10px;border-radius:10px">
-    <h1 style="color:white;text-align:center;">Intel Image Classification Application </h1>
-    </div>
+    <center><div style="background-color:#3a7ff0;padding:10px;border-radius:10px;width:800px">
+    <h1 style="color:white;text-align:center;">Natural Scenes Images Classification </h1>
+    </div></center>
     """
     stc.html(HTML_BANNER)
+    
 
     def main():
         
@@ -210,3 +198,98 @@ elif app_mode == 'App':
 
     if __name__ == '__main__':
              main()
+
+
+
+
+# classification app
+elif app_mode == 'Classification App':
+    
+    # title
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+
+    HTML_BANNER = """
+    <center><div style="background-color:#3a7ff0;padding:10px;border-radius:10px;width:800px">
+    <h1 style="color:white;text-align:center;">Natural Scenes Images Classification </h1>
+    </div></center>
+    """
+    stc.html(HTML_BANNER)
+    
+   
+    origin_folder = 'C:\\Users\\ritth\\code\\Strive\\CNN-Weekend-Challenge\\Test_images'
+    destination_folder = 'üimages'
+    os.mkdir(destination_folder)
+
+    
+
+    # get image file names
+    image_names = os.listdir(origin_folder)
+    # print(image_names)
+    classes = torch.load('C:\\Users\\ritth\\code\\Strive\\CNN-Weekend-Challenge\\classes.pth')
+    model = load_model()
+
+    for name in image_names:
+        # get prediction
+        img_src_pth = os.path.join(origin_folder, name)
+        img = Image.open(img_src_pth)
+        pred = predict(model,img,classes)
+
+        # Destination subfolder (based on pred) and image pth names
+        dst_sub_folder = os.path.join(destination_folder, pred)
+        img_dst_pth = os.path.join(dst_sub_folder, name)
+
+        # If subfolder doesn't exist, create it and copy in image
+        if not os.path.isdir(dst_sub_folder):
+            os.mkdir(dst_sub_folder)
+            shutil.copy(img_src_pth, img_dst_pth)
+
+        else:
+            shutil.copy(img_src_pth, img_dst_pth)
+
+
+
+
+# about us
+elif app_mode == "ABOUT":
+
+   # title
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+
+    HTML_BANNER = """
+    <center><div style="background-color:#3a7ff0;padding:10px;border-radius:10px;width:800px">
+    <h1 style="color:white;text-align:center;"> Our Team Members </h1>
+    </div></center>
+    """
+    stc.html(HTML_BANNER)
+
+
+    st.image("Downloads\\team.PNG", use_column_width = True)
+
+
+
+
+
+# logout
+else:
+
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+    st.markdown('\n')
+    
+    # Gif from local file
+    file_ = open("Downloads\\log.gif", "rb")
+    contents = file_.read()
+    data_url = base64.b64encode(contents).decode("utf-8")
+    file_.close()
+
+    st.markdown(
+        f'<center><img src="data:image/gif;base64,{data_url}" alt="test gif"></center>',
+        unsafe_allow_html= True
+    )
