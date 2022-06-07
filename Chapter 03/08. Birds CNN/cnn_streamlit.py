@@ -10,6 +10,7 @@ import shutil
 from torchvision import transforms, models
 import streamlit.components.v1 as stc
 from streamlit_option_menu import option_menu
+from prediction import make_prediction
 
 
 
@@ -221,35 +222,42 @@ elif app_mode == 'DESTINATION':
     stc.html(HTML_BANNER)
     
    
-    origin_folder = 'C:\\Users\\ritth\\code\\Strive\\CNN-Weekend-Challenge\\Test_images'
-    destination_folder = 'üimages'
-    os.mkdir(destination_folder)
+    # get input from user
+    # source and destination folders of images to classify
+    col1, col2 = st.columns(2)
+    origin_folder = col1.text_input('Source folder')
+    destination_folder = col2.text_input('Destination folder')
+    classify = st.button('Classify my images')
 
-    
+    if classify:
+        if not os.path.isdir(destination_folder):
+            os.mkdir(destination_folder)
 
     # get image file names
-    image_names = os.listdir(origin_folder)
+        image_names = os.listdir(origin_folder)
     # print(image_names)
-    classes = torch.load('C:\\Users\\ritth\\code\\Strive\\CNN-Weekend-Challenge\\classes.pth')
-    model = load_model()
+        classes = torch.load(
+            'classes.pth')
+        model = load_model()
 
-    for name in image_names:
-        # get prediction
-        img_src_pth = os.path.join(origin_folder, name)
-        img = Image.open(img_src_pth)
-        pred = predict(model,img,classes)
+        for name in image_names:
+            # get prediction
+            img_src_pth = os.path.join(origin_folder, name)
+            img = Image.open(img_src_pth)
 
-        # Destination subfolder (based on pred) and image pth names
-        dst_sub_folder = os.path.join(destination_folder, pred)
-        img_dst_pth = os.path.join(dst_sub_folder, name)
+            pred = make_prediction(model, img, classes)
 
-        # If subfolder doesn't exist, create it and copy in image
-        if not os.path.isdir(dst_sub_folder):
-            os.mkdir(dst_sub_folder)
-            shutil.copy(img_src_pth, img_dst_pth)
+            # Destination subfolder (based on pred) and image pth names
+            dst_sub_folder = os.path.join(destination_folder, pred)
+            img_dst_pth = os.path.join(dst_sub_folder, name)
 
-        else:
-            shutil.copy(img_src_pth, img_dst_pth)
+            # If subfolder doesn't exist, create it and copy in image
+            if not os.path.isdir(dst_sub_folder):
+                os.mkdir(dst_sub_folder)
+                shutil.copy(img_src_pth, img_dst_pth)
+
+            else:
+                shutil.copy(img_src_pth, img_dst_pth)
 
 
 
