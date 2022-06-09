@@ -66,7 +66,7 @@ def predict(model, categories, image):
 
     model.eval()
     with torch.no_grad():
-        output = model(input_batch)
+        output = model.forward(input_batch)
 
     probabilities = torch.nn.functional.softmax(output, dim=1)[0] * 100
     st.header("The image is a " + categories[np.argmax(probabilities)])
