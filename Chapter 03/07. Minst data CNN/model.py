@@ -11,9 +11,9 @@ torch.manual_seed(0)
 
 
 
-class ConvNet(nn.Module):
+class Model(nn.Module):
     def __init__(self):
-        super(ConvNet, self).__init__()
+        super(Model, self).__init__()
         self.conv1 = nn.Conv2d(1, 32, 3, padding='same')
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(32, 64, 3, padding='same')
@@ -38,4 +38,4 @@ class ConvNet(nn.Module):
         
         return out
 
-model = ConvNet()
+model = Model()
