@@ -3,7 +3,7 @@ import pandas as pd
 
 def next_stock_batch(batch_size, n_steps, df_base, n_features):
     t_min = 0
-    t_max = df_base.shape[0]
+    t_max = df_base.shape[0]     # total number of samples
   
     # The inputs will be formed by 8 sequences taken from
     # 7 time series [ISE.1,SP,DAX,FTSE,NIKKEI,BOVESPA,EU]
@@ -16,7 +16,7 @@ def next_stock_batch(batch_size, n_steps, df_base, n_features):
     # We chose batch_size random points from time series x-axis
 
     starting_points = np.random.randint(0,t_max-n_steps-1,size=batch_size)    
-    #print(starting_points)
+    print(starting_points)
     df = df_base.drop('date', axis=1)
     feat = df.values
 
@@ -29,7 +29,7 @@ def next_stock_batch(batch_size, n_steps, df_base, n_features):
     
     #Save on x and y the time series data sequence and the prediction sequence
 
-    return x,y
+    return x, y
 
 df = pd.read_csv('data_akbilgic.csv')
 
