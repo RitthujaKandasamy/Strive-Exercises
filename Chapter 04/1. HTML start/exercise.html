@@ -1,7 +1,35 @@
 <html>
     <head>
+       
         <title> Portfolio</title>
+
+        <style>
+            h3 {
+                background-color: rgb(51, 57, 57); 
+                display: inline-flex;              
+            }
+
+            #title{
+                color: rebeccapurple;
+            }
+
+            .subtitle{
+                background-color: rgb(231, 194, 140);
+            }
+
+           .main-img {
+            width: 100%;
+            height: 300px;
+            background-image: url("green.jpg");
+            background-size: auto;
+            background-attachment: fixed;
+            background-position: center;
+           } 
+        </style>
+
     </head>
+
+    <div class="main-img" ></div>
     <space>
         <center>
             <div style="background-color:#3a7ff0;padding:10px;border-radius:10px;width:800px">
@@ -9,24 +37,28 @@
             </div>
         </center>
     </space>
+
     <h3><span style="color:rgb(43, 226, 58)">IT IS ABOUT MY SHORT INTRO</span></h3>
     <p>
-        My name is Ritthuja Kandasamy. I am from Tamilnadu, India. 
+        My name is Ritthuja Kandasamy. I am from Tamilnadu, India. I love to take nature photos.
         Now I am living in Germany, studying at <a href="https://epicode.com/courses/web-developer-eng/?utm_source=google&utm_medium=ppc&utm_campaign=2022_EPICODEGLOBAL_Brand&utm_content=epicode&gclid=Cj0KCQjwn4qWBhCvARIsAFNAMihRQTU-qQRBA051fW-nd8QHzvt2zyNqHTz6Kzjj6mjkU3rU9IPnKqsaAk7lEALw_wcB">EPICODE Global</a> as Data Scientist. </p>
-    <p>Some of my hobbies are:</p>    
+    <p id="title">Some of my hobbies are:</p>  
+
     <li>Swimming</li>
     <li>Reading Books</li>
     <li>Hiking</li>
     <li>Baking</li>
-    <li>Playing games</li>
+    <li>Photography</li>
+
     <div style="background-color:#d6e0e7;padding:10px;border-radius:10px;width:800px">
-    <h3>Some of the picture of my nature Hiking</h3>
+    <h3 class="subtitle">Some of the samples of my photography</h3>
             <img  height="150" width="200" src="1.jpg" />
             <img  height="150" width="200" src="3.jpg" />
-            <img height="150" width="200" src="2.jpg" />     
+            <img  height="150" width="200" src="2.jpg" />     
     </div>
     
-    <h1><span style="color: bisque">PLEASE SHARE YOUR COMMENT</span> </h1>
+    <h1><span style="color: bisque">CONTACT ME</span> </h1>
+
     <form onsubmit="alert('Thank you submitted your command !') ">
         <div>
             <input type="text" placeholder="Name" >
@@ -40,6 +72,7 @@
         <button type="submit"> Submit </button>
         
     </form>
+
     
 </html>
 
