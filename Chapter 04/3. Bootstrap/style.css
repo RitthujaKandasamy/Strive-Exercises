@@ -1,0 +1,49 @@
+
+
+.bg-dark{
+    background-color: #d57616;
+}
+
+.navbar-brand{
+    font-size: xx-large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    padding: 20;
+}
+
+.para{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: xx-large;
+    margin-top: 20px;
+    color: rgb(93, 82, 186);
+    padding-top: 20px;
+}
+
+.display-1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+
+.col1{
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("images\\f.jpg");
+   
+}
+
+.col2{
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("images\\f.jpg");
+   
+}
+
+.col3{
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url("images\\f.jpg");
+   
+}
