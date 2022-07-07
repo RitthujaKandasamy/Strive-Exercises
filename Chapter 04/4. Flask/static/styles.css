@@ -1,0 +1,14 @@
+
+:root{
+--background-color: #c9e4caff;
+--secondary-color: #731963ff;
+--primary-color: #ce6d8bff;
+--text-color:white;
+}
+
+body{
+    background-color: var(--background-color);
+    
+}
+
+
