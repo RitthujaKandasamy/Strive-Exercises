@@ -1,22 +1,28 @@
 {% extends "base.html" %}
 {%from "components/card.html" import card%}
+{%from "components/card2.html" import card2%}
+{%from "components/card3.html" import card3%}
 
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
-    <h1>Index</h1>
+    <h1 style="margin-top: 30px; font-size: 70px; font-family: 'Times New Roman', Times, serif;">Portfolio Samples</h1>
+    {{card2()}}
+
     <div class="container">
         <div class="row">
           <div class="col">
-            {{card("static\\6.png", "hi", "how are you")}}
+            {{card("static\\a.jpg", "Marketing Specialist Portfolio Template", "Use this marketing portfolio template to share your professional achievements with your business partners. Customize online & share it via link!", "https://reallygooddesigns.com/portfolio-website-design/","Link")}}
           </div>
           <div class="col">
-            {{card("static\\6.png", "hi", "how are you")}}
+            {{card("static\\9.jpg", "A Fashionable Pink Portfolio Template for Adobe InDesign", "This beautifully designed portfolio template is the right choice for everyone who wants to present their work in a unique and eye-catching way.", "https://reallygooddesigns.com/portfolio-website-design/","Link")}}
           </div>
           <div class="col">
-            {{card("static\\6.png", "hi", "how are you")}}
+            {{card("static\\5.png", "Build your online portfolio with Carbonmade.", "Start with a foundation based on the work you do, then customize as much as you want. No limiting templates.", "https://reallygooddesigns.com/portfolio-website-design/", "Link")}}
           </div>
         </div>
       </div>
+    
+    {{card3()}}
     
 {% endblock %}
