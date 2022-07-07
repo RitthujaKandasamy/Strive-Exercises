@@ -8,7 +8,8 @@
 
 body{
     background-color: var(--background-color);
-    
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;   
 }
 
 
