@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
     return render_template("home.html")
 
-@app.route("/")  ## --> decorator
+@app.route("/about")  ## --> decorator
 def about():
     return render_template("about.html")
 
