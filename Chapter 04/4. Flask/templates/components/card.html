@@ -1,10 +1,11 @@
-{% macro card(cover_url, title,description) -%}
+{% macro card(cover_url, title,description,link,link_text) -%}
 
-<div class="card" style="width: 18rem;">
-    <img src="{{cover_url}}" class="card-img-top" alt="...">
+<div class="card" style="width: 20rem; margin-top: 90px; ">
+    <img src="{{cover_url}}" class="card-img-top" style="width: 20rem; height: 15rem">
     <div class="card-body">
       <h5 class="card-title">{{title}}</h5>
       <p class="card-text">{{description}}</p>
+      <a href="{{link}}" class="btn btn-primary">{{link_text}}</a>
     </div>
   </div>
 
