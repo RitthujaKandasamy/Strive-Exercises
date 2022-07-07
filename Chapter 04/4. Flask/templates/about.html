@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{%from "components/card.html" import card%}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+    <h1>Index</h1>
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            {{card("static\\6.png", "hi", "how are you")}}
+          </div>
+          <div class="col">
+            {{card("static\\6.png", "hi", "how are you")}}
+          </div>
+          <div class="col">
+            {{card("static\\6.png", "hi", "how are you")}}
+          </div>
+        </div>
+      </div>
+    
+{% endblock %}
