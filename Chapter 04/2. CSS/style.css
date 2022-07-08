@@ -69,7 +69,6 @@ input, textarea{
     border: none;
     padding: 10px 4px;
     border-radius: 3px;
-    margin-inline-start: 310px;
     letter-spacing: 0.5px;
 }
 
@@ -78,7 +77,6 @@ button{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: medium;
     margin-top: 15px;
-    margin-inline-start: 310px;
 }
 
 button:hover{

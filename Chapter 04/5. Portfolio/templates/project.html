@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{%from "components/card.html" import card%}
+{%from "components/card2.html" import card2%}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+    <h1 style="margin-top: 50px; font-size: 80px; font-family: 'Times New Roman', Times, serif;">Sample Projects</h1>
+    {{card2()}}
+
+    <div class="container">
+        <div class="row">
+          <div class="col">
+            {{card("static\\images\\download.jpg", "Google-Fit", "This project is the fitness app. Here we created an a app that tells about how much calories we burned per day. With help of this app you an calculate your calories!", "https://github.com/RitthujaKandasamy/Google-Fit","Link")}}
+          </div>
+          <div class="col">
+            {{card("static\\images\\images.jpg", "Inlet", "This project is about the classification with Convolution Neural Network, because here comes the inlet classification. We classified most accuracily!", "https://github.com/RitthujaKandasamy/CNN-Weekend-Challenge","Link")}}
+          </div>
+          <div class="col">
+           {{card("static\\images\\download (1).jpg", "IMDB", "Start with a foundation based on the phyton, here comes the IMDB movie project. You can choose your favorite movies here. We classified the top movies in the IMDB! ", "https://github.com/RitthujaKandasamy/imdb_challenge", "Link")}}
+          </div>
+        </div>
+      </div>
+    
+{% endblock %}
