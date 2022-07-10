@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {%from "components/carouse.html" import carouse%}
-
+{%from "components/footer.html" import footer%}
 
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
    {{carouse()}}
-    
+   {{footer()}}
 {% endblock %}
