@@ -1,0 +1,108 @@
+/*Question-1
+
+select film.title as Title,
+       film.description as Description,
+       film.release_year as Release_year,
+       category.name as Category_name
+from film
+join film_category
+       on film.film_id = film_category.film_id
+join category
+       on film_category.category_id = category.category_id
+order by title desc*/
+
+
+
+
+
+-- Question-2
+
+/*select
+     c.first_name,
+     c.last_name,
+     address.address,
+     city.city,
+     country.country 
+from customer c
+inner join address using (address_id)
+inner join city using (city_id)
+inner join country using (country_id)
+order by city asc*/
+
+
+
+
+
+-- Question-3 
+
+/*select 
+     customer.first_name as first_name,
+     customer.last_name as last_name,
+     p.payment_id as payment_id,
+     p.payment_date as payment_date,
+     p.amount as amount,
+     p.customer_id as customer_id, 
+     p.staff_id as staff_id,
+     p.rental_id as rental_id
+from payment p
+inner join rental 
+         on rental.rental_id = p.rental_id
+inner join customer 
+         on customer.customer_id = p.customer_id
+inner join staff 
+         on staff.staff_id = p.staff_id
+order by first_name asc*/
+
+
+
+
+
+-- Question-4
+
+/*select 
+     a.first_name,
+     a.last_name,
+     a.actor_id,
+     film.film_id,
+     film.title as film_name
+from actor a
+inner join film_actor
+                 on film_actor.actor_id = a.actor_id
+inner join film 
+                 on film_actor.film_id = film.film_id
+order by first_name asc;*/
+  
+  
+  
+-- How to count the total number of movie there?
+
+/*select count(actor_id), first_name
+from actor
+group by first_name
+order by first_name asc;*/
+
+
+
+
+       
+ -- Question-5
+ 
+/*select
+      store.address_id as staff_address,
+      staff.last_name as staff_name,
+      store.manager_staff_id as staff_id
+from store
+inner join address using (address_id)
+join staff 
+        on staff.staff_id = store.manager_staff_id*/
+        
+
+
+  
+        
+        
+-- Question-6
+
+
+      
+
