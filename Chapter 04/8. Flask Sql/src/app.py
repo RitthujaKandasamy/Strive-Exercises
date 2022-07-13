@@ -1,13 +1,12 @@
 from flask import Flask
 from flask_restful import Api
 from routes.home.route import HomeRoute, HomeRouteWithId
-import pandas as pd
 from utils.db import db
 
 
 def create_app():
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "Sqlite:///db.sqlite"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     api = Api(app)
 
@@ -17,6 +16,9 @@ def create_app():
     api.add_resource(HomeRoute, '/')
     api.add_resource(HomeRouteWithId, '/<string:id>')
     return app
+
+
+
 
 
 
