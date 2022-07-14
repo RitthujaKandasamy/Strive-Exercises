@@ -1,74 +1,51 @@
 from flask_restful import Resource
-from flask import request
-import uuid
-from utils.models.user import User
-from utils.db import db
+import os
+from app import ALLOWED_EXTENSIONS, app
+from flask import request, redirect, url_for, flash
+from werkzeug.utils import secure_filename
+from flask import send_from_directory
 
 
-data = []
 
 class HomeRoute(Resource):
-    def get(self):
-        users = db.session.query(User).all()
-        users = [user.to_json() for user in users]
-        return {'data': users}
+    def allowed_file(filename):
+        return '.' in filename and \
+             filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-    def post(self):
-        # id = str(uuid.uuid4())
-        id=str(uuid.uuid4())
-        name = request.form["first_name"]
-        last_name = request.form["last_name"]
-        email = request.form["email"]
-        # user = {'id':id, 'name': name, 'last_name':last_name, 'email':email}
-        user = User(user_id=id, first_name= name, last_name=last_name, email=email)
-        db.session.add(user)           ## add user to the database
-        db.session.commit()            ## commit the changes to the database
-        # data.append(user)
-        return {'data': user.to_json()}
+    @app.route('/', methods=['GET', 'POST'])
+    def upload_file():
+        if request.method == 'POST':
+            # check if the post request has the file part
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            # If the user does not select a file, the browser submits an
+            # empty file without a filename.
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file:
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                return redirect(url_for('download_file', name=filename))
+        return '''
+        <!doctype html>
+        <title>Upload new File</title>
+        <h1>Upload new File</h1>
+        <form method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+        </form>
+        '''
 
-    
-# def find_object_by_id(id):
-#     for data_object in data:
-#         if data_object["id"] == id:
-#             return data_object
-#         else:
-#             return None
+    @app.route("/uploads/<path:name>") # <--- name is file name
+    def download_file(name):
+		
+        return send_from_directory(
+               app.config['UPLOAD_FOLDER'], name, as_attachment=True
+    )
 
 
-class HomeRouteWithId(Resource):
-    def get(self,id):
-        # data_object = find_object_by_id(id)
-        data_object = db.session.query(User).filter(User.user_id == id).first()
-        if(data_object):
-            return {"data":data_object.to_json()}
-        else:
-            return {"data":"Not Found"},404
-
-    
-    def put(self,id):
-        data_object = db.session.query(User).filter(User.user_id == id).first()
-        #data_object = find_object_by_id(id)
-        if(data_object):
-            for key in request.form.keys():
-                setattr(data_object,key,request.form[key])
-            db.session.commit() 
-            # data_object["name"] = request.form["name"]
-            # data_object["last_name"] = request.form["last_name"]
-            # data_object["email"] = request.form["email"]
-            return {"data":data_object.to_json()}
-        else:
-            return {"data":"Not Found"},404
-    
-
-    def delete(self,id):
-        #data_object = find_object_by_id(id)
-        data_object = db.session.query(User).filter(User.user_id == id).first()
-        if(data_object):
-            db.session.delete(data_object)          
-            db.session.commit() 
-            # data.remove(data_object)
-            return {"data":"DELETED"}
-        else:
-            return {"data":"Not Found"},404
 
