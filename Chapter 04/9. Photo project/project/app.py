@@ -41,7 +41,7 @@ def download(upload_id):
     if not upload:
         return 'Img Not Found!', 404
 
-    return Response(upload.data, attachment_filename=upload.filename, as_attachment=True)
+    return Response( attachment_filename=upload.filename, as_attachment=True)
 
 
 # @app.route('/<int:id>')
