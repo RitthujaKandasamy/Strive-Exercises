@@ -1,0 +1,28 @@
+{% macro navbar() -%}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" >
+      <img src="static\\images\\photo.png" width="50" height="54" class="d-inline-block align-text-top"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 30px; margin-left: 50px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/about">Hobbies</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/project">Project</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{%- endmacro %}
