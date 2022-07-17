@@ -1,0 +1,18 @@
+{% macro card() -%}
+
+<div data-ix="fadeandmoveup" class="content-parent" style="margin-top: 50px;">
+  <h1 class="title">Let's talk.</h1>
+  <p class="paragraph content-paragraph" style="margin-bottom: 30px;">
+    Get in touch via the form below, or by emailing&nbsp; <a href="ritthujakandasamy@gmail.com" class="link">hello@rk.is</a>
+  </p>
+  <div class="form-parent w-form">
+    <form id="wf-form-Email-Form" name="wf-form-Email-Form" data-name="Email form" onsubmit="alert('Thank you for submitted your command !') ">
+      <input type="text" class="form-input w-input"  placeholder="Enter your name">
+      <input type="email"  placeholder="Enter your email">
+      <textarea  name="text" rows="10" id="comment" placeholder="Comment" ></textarea>
+      <button type="submit"> Submit </button> 
+    </form>
+  </div>
+</div>
+
+{%- endmacro %}
