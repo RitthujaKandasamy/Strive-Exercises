@@ -1,6 +1,8 @@
-.nav-link:hover{
-    color: rgb(180, 21, 28);  
 
+body{
+    background: linear-gradient(334deg, rgb(212, 124, 236), rgb(169, 216, 239), rgb(107, 111, 220));
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;  
 }
 
 
@@ -27,5 +29,19 @@ button{
 
 button:hover{
     color: aliceblue;
-    background-color: rgb(86, 114, 127);
+    background-color: rgb(18, 168, 237);
+}
+
+.button_new{
+    background-color: rgb(236, 207, 99);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: medium;
+    margin-top: 0px;   
+    margin-inline-start: 0px;
+    border-radius: 3px;
+}
+
+.button_new:hover{
+    color: aliceblue;
+    background-color: rgb(214, 168, 148);
 }
