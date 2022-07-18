@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+{% block content %}
+
+<div class="container w-50" style="margin-top: 200px ;">
+    <form method="POST" action="">
+{{form.hidden_tag()}}
+<fieldset>
+<legend class="border-bottom mb-4" style="font-size: 40px;">Login</legend>
+
+<div class="form-group">
+    {{form.email.label(class="form-control-label")}}
+    {%if form.email.errors%}
+    {{form.email(class="form-control form-control-lg is-invalid")}}
+        {%for error in form.email.errors%}
+            <span>{{error}}</span>
+        {%endfor%}
+        {%else%}
+        {{form.email(class="form-control form-control-lg")}}
+    {%endif%}  
+</div>
+<div class="form-group">
+    {{form.password.label(class="form-control-label")}}
+    {%if form.password.errors%}
+    {{form.password(class="form-control form-control-lg is-invalid")}}
+        {%for error in form.password.errors%}
+            <span>{{error}}</span>
+        {%endfor%}
+        {%else%}
+        {{form.password(class="form-control form-control-lg")}}
+    {%endif%}  
+</div>
+
+</fieldset>
+<div class="field-group" style="box-sizing:50px ; margin-top: 22px;">
+    {{form.submit(class='btn btn-online-info')}}
+</div>
+
+<h5 style="margin-inline-start: 280px; margin-top: 32px;">Don't have any account? <a href="/share">Sign Up now</a> </h5>
+    </form>
+</div>
+    
+    
+    
+{% endblock %}
+        
+    

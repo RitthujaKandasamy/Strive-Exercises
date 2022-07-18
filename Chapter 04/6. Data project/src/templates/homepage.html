@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {%from "components/card1.html" import card1%}
+{%from "components/card2.html" import card2%}
 
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
    {{card1()}}
-    
+   {{card2()}}
+   
+
 {% endblock %}
