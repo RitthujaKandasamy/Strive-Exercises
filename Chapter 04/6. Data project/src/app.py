@@ -7,7 +7,7 @@ from utils.models.user import User
 ## create instance
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisisfirstflaskapp'
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db1.sqlite"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -31,7 +31,7 @@ def sign():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email= form.email.data).first()
-        if form.email.data==User.email and form.password.data==User.password:
+        if form.email.data==user.email and form.password.data==user.password:
             flash(f'Login successful for {form.email.data}', category='success')
             return redirect(url_for('homepage'))
         else:
