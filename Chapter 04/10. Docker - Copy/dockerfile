@@ -1,0 +1,16 @@
+FROM python:3
+
+# create an folder in the docker
+COPY ./requirements.txt /app/requirements.txt 
+
+# taking to the working dir to the app...
+WORKDIR /app
+
+RUN pip3 install -r requirements.txt
+
+# copying all the required information in the docker in app folder
+COPY . /app
+
+ENTRYPOINT ["python3"]
+
+CMD ["api.py"]
