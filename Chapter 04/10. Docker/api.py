@@ -16,12 +16,16 @@ class Name(Resource):
 
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("Origin", type=str)
+        parser.add_argument("Origin", location="json")
 
         args = parser.parse_args()
         origin = args['Origin']
+        
+        print(origin)
 
         return db.get_origin(origin)
+        #return {"Origin":origin}
+
 
 
 api.add_resource(Beers, "/beers")

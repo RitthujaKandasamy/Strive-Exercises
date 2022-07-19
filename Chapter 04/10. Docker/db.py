@@ -25,7 +25,7 @@ def get_beers():
         engine = create_engine("sqlite:///beer.db")  
         conn = engine.connect()                         
         
-        df = pd.read_sql_query("SELECT * FROM beers", conn)
+        df = pd.read_sql_query("SELECT * FROM beer", conn)
         
         conn.close()
 
@@ -35,13 +35,13 @@ def get_beers():
         return {"ERROR": "No table was found"}
 
 
-def get_origin(Origin):
+def get_origin(origin):
 
     try:
         engine = create_engine("sqlite:///beer.db")     
         conn = engine.connect()                         
 
-        df = pd.read_sql_query("SELECT Name FROM beers WHERE Origin = '{}'".format(Origin), conn)
+        df = pd.read_sql_query("SELECT Name FROM beer WHERE Origin = '{}'".format(origin), conn)
         conn.close()
 
         return df.to_dict()                                 
