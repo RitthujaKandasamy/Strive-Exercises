@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Api, Resource, reqparse
 import db
 
@@ -16,11 +16,11 @@ class Beers(Resource):
 class Name(Resource):
 
     def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument("Origin", type=str)
+        # parser = reqparse.RequestParser()
+        # parser.add_argument("Origin", type=str)
 
-        args = parser.parse_args()
-        origin = args["Origin"]
+        # args = parser.parse_args()                                # getting an a argument, in dictionary form ( parser.parse_args()) act as an a key
+        origin = request.args["Origin"]
         
         print(origin)
 

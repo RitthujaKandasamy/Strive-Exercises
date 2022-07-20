@@ -41,7 +41,7 @@ def get_origin(origin):
         engine = create_engine("sqlite:///beer.db")     
         conn = engine.connect()                         
 
-        df = pd.read_sql_query("SELECT Name FROM beer WHERE Origin = '{}'".format(origin), conn)
+        df = pd.read_sql_query("SELECT Name FROM beer WHERE Origin = '{}'".format(origin), conn)     # from beer select the name with any given parameter for origin
         conn.close()
 
         return df.to_dict()                                 
@@ -50,4 +50,4 @@ def get_origin(origin):
         return {"ERROR": "No origin was found"}
 
 
-create_db()
+create_db()                 ### create the table for once
