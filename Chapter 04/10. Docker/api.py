@@ -3,6 +3,7 @@ from flask_restful import Api, Resource, reqparse
 import db
 
 
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -16,10 +17,10 @@ class Name(Resource):
 
     def get(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("Origin", location="json")
+        parser.add_argument("Origin", type=str)
 
         args = parser.parse_args()
-        origin = args['Origin']
+        origin = args["Origin"]
         
         print(origin)
 
