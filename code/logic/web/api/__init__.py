@@ -61,7 +61,8 @@ class Striver_api(Resource):
 
             return {"email":email_, "name":name_}
 
-        except:
+        except Exception as exp:
+            print(exp)                       # it will print the error in which line we get
             return{"ERROR": "Couldn't insert email"}
 
 
