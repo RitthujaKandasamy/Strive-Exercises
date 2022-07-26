@@ -7,6 +7,19 @@
 
 {% block content %}
    {{card()}}
-   {{card1()}}
+   <div class="container">
+        <div class="col">
+            {{card1("static\\images\\asl.jpg", "World Sign Language", "This project is the fitness app. Here we created an a app that tells about how much calories we burned per day. With help of this app you an calculate your calories!", "https://github.com/RitthujaKandasamy/Google-Fit","MORE")}}
+        </div>
+        <div class="col">
+          {{card1("static\\images\\pro.jpg", "Project", "This project is the fitness app. Here we created an a app that tells about how much calories we burned per day. With help of this app you an calculate your calories!", "https://github.com/RitthujaKandasamy/Google-Fit","MORE")}}
+        </div>
+        <div class="col">
+          {{card1("static\\images\\contact.jpg", "Contact info", "This project is about the classification with Convolution Neural Network, because here comes the inlet classification. We classified most accuracily!", "https://github.com/RitthujaKandasamy/CNN-Weekend-Challenge","MORE")}}
+        </div>
+        <div class="col">
+         {{card1("static\\images\\improvement.jpg", "Further process", "Start with a foundation based on the phyton, here comes the IMDB movie project. You can choose your favorite movies here. We classified the top movies in the IMDB! ", "https://github.com/RitthujaKandasamy/imdb_challenge", "MORE")}}
+        </div>
+    </div>
 
 {% endblock %}

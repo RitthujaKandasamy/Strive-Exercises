@@ -1,14 +1,13 @@
 div{
-    background: linear-gradient(334deg, rgb(207, 230, 138), rgb(143, 202, 214), rgb(133, 233, 190));
+    background: linear-gradient(334deg, rgb(107, 215, 221), rgb(88, 161, 185), rgb(146, 79, 222));
     background-attachment: fixed;   
 }
 
 body{
-    background-image: url('/static/images/e.jpg');
+    background-image: url('/static/images/background.jpg');
     background-size: cover;  
 }
 
 
-/* div{
-    background-color: bisque;
-} */
+
+
