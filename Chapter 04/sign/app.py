@@ -1,5 +1,4 @@
-from flask import Flask,render_template
-
+from flask import Flask, render_template
 ## create instance
 app = Flask(__name__)
 
@@ -8,7 +7,17 @@ app = Flask(__name__)
 def index():
     return render_template("home.html")
 
+@app.route("/about")  ## --> decorator
+def about():
+    return render_template("about.html")
 
+@app.route("/pro")  ## --> decorator
+def project():
+    return render_template("project.html")
+
+@app.route("/info")  ## --> decorator
+def info():
+    return render_template("contact.html")
 
 ## to run your app
 if __name__ =="__main__":
