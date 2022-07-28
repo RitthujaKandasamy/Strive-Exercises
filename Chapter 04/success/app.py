@@ -26,8 +26,8 @@ from torchvision import datasets, transforms, models
 
 global easy, medium, hard, freestyle, switch
 easy=0
-medium=0
 hard=0
+medium=0
 freestyle=0
 switch=1
 
@@ -100,7 +100,7 @@ cap = cv2.VideoCapture(cam_max, cv2.CAP_DSHOW)
 # In[ ]:
 
 
-letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','space', 'del', 'nothing']
+letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','S','T','U','V','W','X','Y','Z','space', 'del', 'nothing']
 words = [i for i in sorted(list(english_words_lower_alpha_set)) if 'z' not in i and len(i) > 3 and len(i) <= 10]
 start_time = time.time()
 curr_time = 0
@@ -155,7 +155,7 @@ def easy_mode(frame):
             # Make detections
             image, results = mediapipe_detection(frame, hands)
 
-            letter_help = cv2.resize(cv2.imread('asl_alphabet_test/{}.jpg'.format(easy_word[easy_word_index].lower())), (0,0), fx=0.2, fy=0.2)
+            letter_help = cv2.resize(cv2.imread('easy_model_letter/{}.png'.format(easy_word[easy_word_index].lower())), (0,0), fx=0.2, fy=0.2)
 
             #Find bounding box of hand
             if results.multi_hand_landmarks:
