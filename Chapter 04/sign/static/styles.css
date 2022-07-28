@@ -1,8 +1,8 @@
 
 
 div{
-    background: linear-gradient(334deg, rgb(237, 160, 150), rgb(148, 229, 128), rgb(240, 208, 111));
-    background-attachment: fixed;   
+    background-color: #EFE4B0;
+    background-attachment: fixed;  
 }
 
 /* body{
@@ -11,7 +11,32 @@ div{
 } */
 
 body{
-    background: linear-gradient(334deg, rgb(28, 29, 29), rgb(126, 49, 114), rgb(146, 79, 222));
+    background-image: url('/static/images/background.jpg');
     background-attachment: fixed;   
+}
+
+
+h1{
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #0F0F0F;
+}
+
+
+p{
+    font-size: 16px; 
+    margin-top: 20px;
+}
+
+
+.btn{
+    background-color:#EFE4B0;
+    box-shadow: 0 2px 3px black ;
+    letter-spacing: 1px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.btn:hover{
+    background-color: #f2c26f;
 }
 

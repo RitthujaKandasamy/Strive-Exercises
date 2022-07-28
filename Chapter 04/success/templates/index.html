@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Practice Sign Language!</title>
+</head>
+<body>
+<h2> Welcome to Sign Language Practice!</h2>
+<h4>Please choose a mode for practice:</h4>
+<p><b>Easy</b>: The correct sign will be shown on screen, just match it!<br>
+  <b>Medium</b>: The correct sign will not be shown, just sign the correct letters!<br>
+  <b>Hard</b>: If you sign the incorrect letter, you will have to start the word over!<br>
+  <b>Freestyle</b>: Sign anything you'd like! To start over, move your hand out of view!<br>
+<br>
+  Note: please practice with your right hand.
+</p>
+<form method="post" action="{{ url_for('mode') }}">
+      <input type="submit" value="Easy" name="easy" />
+      <input type="submit" value="Medium" name="medium"/>
+      <input type="submit" value="Hard" name="hard" />
+      <input type="submit" value="Freestyle" name="free" />
+      </form>
+<br>
+<img src="{{ url_for('video_feed') }}">
+</body>
+</html>
