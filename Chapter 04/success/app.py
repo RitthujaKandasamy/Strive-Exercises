@@ -14,7 +14,7 @@ from english_words import english_words_lower_alpha_set
 from flask import Flask, render_template, Response, request
 import torch.nn as nn
 from torchvision import transforms as transforms
-from torchvision import datasets, transforms, models
+import torch.nn.functional as F
 
 
 # In[5]:
@@ -27,8 +27,6 @@ switch=1
 
 # In[6]:
 
-dest_folder_train = "C:\\Users\\ritth\\code\\Data\\archive\\train_data"
-
 train_transform = transforms.Compose([
                                     transforms.Resize((224, 224)),           # resize will resize all the images into same scale(same pixels) given images size are small and big, so we take approximitily 50
                                     transforms.RandomRotation(20),
@@ -40,25 +38,36 @@ train_transform = transforms.Compose([
                                         std=[0.229, 0.224, 0.225]) 
                                     ])
 
-trainset = datasets.ImageFolder(dest_folder_train, transform = train_transform)
 
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(3, 64, 5)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.conv2 = nn.Conv2d(64, 16, 5)
+        self.fc1 = nn.Linear(16*47*47, 220)
+        self.fc2 = nn.Linear(220, 184)
+        self.fc3 = nn.Linear(184, 93)
+        self.fc4 = nn.Linear(93, 3)
 
-model = models.resnet50(pretrained = True)
+        # Dropout module with a 0.2 drop probability 
+        self.dropout = nn.Dropout(p=0.2)
 
-inputs = model.fc.in_features
-outputs = len(trainset.classes)
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        # print(x.shape)
+        x = x.view(x.shape[0], -1)
+        layer1 = self.dropout(F.relu(self.fc1(x)))
+        layer2 = self.dropout(F.relu(self.fc2(layer1)))
+        layer3 = self.dropout(F.relu(self.fc3(layer2)))
+        out = F.log_softmax(self.fc4(layer3), dim=1)
+    
+        return out
 
-# Freeze parameters so we don't backprop through them
-for param in model.parameters():
-    param.requires_grad = False
+model = Net()
 
-clf = nn.Sequential( 
-              nn.Linear(inputs, outputs)
-                  )
-
-model.fc = clf
-
-clf = model.load_state_dict(torch.load('C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 04\\success\\model.pth'))
+clf = model.load_state_dict(torch.load('C:\\Users\\ritth\\code\\Strive\\Strive-Exercises\\Chapter 04\\success\\model1.pth'))
 
 
 
@@ -147,7 +156,7 @@ def easy_mode(frame):
             # Make detections
             image, results = mediapipe_detection(frame, hands)
 
-            letter_help = cv2.resize(cv2.imread('easy_model_letter/{}.png'.format(easy_word[easy_word_index].lower())), (0,0), fx=0.2, fy=0.2)
+            #letter_help = cv2.resize(cv2.imread('easy_model_letter/{}.png'.format(easy_word[easy_word_index].lower())), (0,0), fx=0.2, fy=0.2)
 
             #Find bounding box of hand
             if results.multi_hand_landmarks:
@@ -189,7 +198,7 @@ def easy_mode(frame):
                             print(e)
 
             # Show letter helper
-            frame[5:5+letter_help.shape[0],width-5-letter_help.shape[1]:width-5] = letter_help
+            #frame[5:5+letter_help.shape[0],width-5-letter_help.shape[1]:width-5] = letter_help
 
             return frame
             

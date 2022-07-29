@@ -79,14 +79,14 @@ def pre_process_landmark(landmark_list):
 
 # prediction
 
-def predict(landmarks, model, threshold=0.75):
+# def predict(landmarks, model, threshold=0.75):
 
-    model.eval()
-    with torch.no_grad():
-        landmarks = torch.tensor(landmarks.reshape(1, -1), dtype=torch.float)
-        class_probalilities = torch.exp(model(landmarks))
-        confidence, class_idx = torch.max(class_probalilities, dim=1)
-        if confidence >= threshold:
-            return confidence.item(), class_idx.item()
-        else:
-            return confidence.item(), 9
+#     model.eval()
+#     with torch.no_grad():
+#         landmarks = torch.tensor(landmarks.reshape(1, -1), dtype=torch.float)
+#         class_probalilities = torch.exp(model(landmarks))
+#         confidence, class_idx = torch.max(class_probalilities, dim=1)
+#         if confidence >= threshold:
+#             return confidence.item(), class_idx.item()
+#         else:
+#             return confidence.item(), 9
