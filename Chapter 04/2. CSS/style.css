@@ -76,6 +76,7 @@ button{
     background-color: rgb(87, 187, 237);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: medium;
+    padding: 10px 15px;
     margin-top: 15px;
 }
 
@@ -103,22 +104,3 @@ a:visited{
     margin-right: 50px;
 }
 
-h2{
-    background-color: rgb(255, 255, 255);
-    border-color: rgb(219, 65, 114);
-    border-radius: 6px;
-    border-style :solid;
-    border-left-width: 2px;
-    border-top-width: 2px;
-    box-shadow: 0 2px 3px rgb(235, 37, 232);
-    box-sizing: border-box;
-    font-family: Lora, serif;
-    font-size: 20px;
-    height: 596.2px;
-    margin-top: 24px;
-    padding: 24px;
-    width :320px;
-    display: flex; 
-    flex-direction: column;
-    flex-wrap: wrap;
-}

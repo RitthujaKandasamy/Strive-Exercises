@@ -6,11 +6,17 @@ import cv2
 
 
 app = Flask(__name__)
-camera=cv2.VideoCapture(0)
+
 
 def generate_frames():
+    
+    camera=cv2.VideoCapture(0)
+
     while True:
-            
+        # key = cv2.waitKey(10)
+        # if key == ord('q'):
+        #     break
+
         ## read the camera frame
         success,frame=camera.read()
         if not success:
@@ -19,8 +25,11 @@ def generate_frames():
             ret,buffer=cv2.imencode('.jpg',frame)
             frame=buffer.tobytes()
 
-        yield(b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        yield(b'--frame\r\n' b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+    camera.release()
+    cv2.destroyAllWindows()
 
 
 
